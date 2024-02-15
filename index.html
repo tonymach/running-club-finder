@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Running Club Finder</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+    
+</head>
+<body>
+    <h1>Find Your Running Club</h1>
+
+<!-- Province Selection -->
+<select id="club-province">
+    <option value="">Select Province</option>
+    <option value="Alberta">Alberta</option>
+    <option value="British Columbia">British Columbia</option>
+    <option value="Manitoba">Manitoba</option>
+    <option value="New Brunswick">New Brunswick</option>
+    <option value="Newfoundland and Labrador">Newfoundland and Labrador</option>
+    <option value="Nova Scotia">Nova Scotia</option>
+    <option value="Ontario">Ontario</option>
+    <option value="Prince Edward Island">Prince Edward Island</option>
+    <option value="Quebec">Quebec</option>
+    <option value="Saskatchewan">Saskatchewan</option>
+    <option value="Northwest Territories">Northwest Territories</option>
+    <option value="Nunavut">Nunavut</option>
+    <option value="Y
+    ukon">Yukon</option>
+</select>
+
+
+<!-- City Selection, initially empty -->
+<select id="club-city">
+    <option value="">Select City</option>
+    <!-- Options will be dynamically added based on province selection -->
+</select>
+
+    <div id="map" style="height: 300px;"></div>
+
+    <!-- City Not Listed Button -->
+    <section id="city-not-listed" style="display: none;">
+        <section id="start-club">
+            <h2>No clubs nearby? Start your own!</h2>
+            <!-- Checklist and recommendations here -->
+            <form id="new-club-form">
+              <!-- Form fields for new club submission -->
+            </form>
+          </section>
+          
+    </section>
+
+    <section id="recommendation-form">
+        <h2>Recommend a Club</h2>
+        <form id="club-form">
+            <input type="text" id="club-name" placeholder="Club Name" required>
+            <input type="text" id="club-location" placeholder="Location" required>
+            <textarea id="club-description" placeholder="Club Description" required></textarea>
+            <input type="text" id="club-social" placeholder="Social Media Link" required>
+
+            <button type="submit">Recommend Club</button> 
+        </form>
+    </section>
+    <section id="club-list">
+        <h2>Latest Clubs</h2>
+        <ul id="clubs"></ul>
+    </section>
+    <script src="app.js"></script>
+</body>
+</html>

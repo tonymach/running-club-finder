@@ -1,0 +1,148 @@
+/* Basic Reset */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f9f7f7;
+    color: #112d4e;
+    padding: 20px;
+    line-height: 1.6;
+}
+
+h1 {
+    color: #3f72af;
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+h2 {
+    color: #3f72af;
+    margin-bottom: 1rem;
+}
+
+/* Form and Input Styling */
+#club-form {
+    background-color: #dbe2ef;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* Adjust spacing between form elements */
+    width: auto;
+    margin-bottom: 2rem;
+}
+
+#club-form input, #club-form textarea, #club-form button {
+    padding: 10px;
+    border: 2px solid #112d4e;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+#club-form textarea {
+    resize: vertical;
+}
+
+#club-form button {
+    background-color: #3f72af;
+    color: #f9f7f7;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#club-form button:hover {
+    background-color: #112d4e;
+}
+
+/* Club List Styling */
+#club-list ul {
+    list-style: none;
+}
+
+#club-list li {
+    background-color: #f9f7f7;
+    margin-bottom: 10px;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Map Styling */
+#map {
+    margin-bottom: 20px;
+    border-radius: 10px;
+    overflow: hidden; /* Ensures the map corners are also rounded */
+}
+
+/* Additional Styling */
+input:focus, textarea:focus, button:focus {
+    outline: none;
+    border-color: #3f72af;
+}
+
+#club-city, #other-city {
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 2px solid #112d4e;
+    border-radius: 5px;
+}
+
+/* Province Dropdown Styling */
+#club-province {
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 2px solid #112d4e;
+    border-radius: 5px;
+    background-color: #fff; /* Optional: for a consistent background color */
+}
+
+/* Consistent Styling for All Select Dropdowns */
+select {
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 2px solid #112d4e;
+    border-radius: 5px;
+    background-color: #fff;
+    cursor: pointer;
+}
+
+/* Hover and Focus Effects for Interactivity */
+select:hover, select:focus {
+    border-color: #3f72af;
+}
+
+/* Consistent Styling for City and Other City Input */
+#club-city, #other-city {
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 2px solid #112d4e;
+    border-radius: 5px;
+    background-color: #fff;
+}
+
+/* City Not Listed Section Styling */
+#city-not-listed {
+    margin-top: 20px;
+    text-align: center;
+}
+
+#report-missing-city {
+    padding: 10px 15px;
+    background-color: #f44336; /* Red color for attention, but feel free to match your theme */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-family: 'Poppins', sans-serif;
+    transition: background-color 0.3s ease;
+}
+
+#report-missing-city:hover {
+    background-color: #c53727; /* Darker shade on hover */
+}
