@@ -15,7 +15,85 @@
 <body>
     <h1>Find Your Running Club</h1>
 
-<!-- Province Selection -->
+    <section class="explanation-section">
+        <h2>How It Works</h2>
+        <p>Welcome to the Running Club Finder! Here’s how you can find a running club near you:</p>
+        <ol>
+            <li>Select your province or region from the dropdown.</li>
+            <li>Browse through the list of available running clubs in your area.</li>
+            <li>Click on a club to see more details, including running days, times, and the club’s social links.</li>
+            <li>If you can’t find your city or a club near you, you can recommend a new club or start one yourself!</li>
+        </ol>
+    </section>
+
+    
+    <div id="map" style="height: 300px;"></div>
+
+    <!-- City Not Listed Button -->
+    <section id="city-not-listed" style="display: none;">
+        <section id="start-club">
+  <h2>No clubs nearby? Start your own!</h2>
+  <!-- Checklist and recommendations here -->
+  <form id="new-club-form">
+    <!-- Form fields for new club submission -->
+  </form>
+</section>
+
+    </section>
+
+    <section id="club-filters">
+        <h2>Find Clubs That Suit You</h2>
+        <div class="filter-group">
+            <div class="filter-option">
+                <label>Days of the Week:</label>
+                <div id="filter-days" class="days-container">
+                    <button type="button" class="day-btn" data-day="Monday">Mon</button>
+                    <button type="button" class="day-btn" data-day="Tuesday">Tue</button>
+                    <button type="button" class="day-btn" data-day="Wednesday">Wed</button>
+                    <button type="button" class="day-btn" data-day="Thursday">Thu</button>
+                    <button type="button" class="day-btn" data-day="Friday">Fri</button>
+                    <button type="button" class="day-btn" data-day="Saturday">Sat</button>
+                    <button type="button" class="day-btn" data-day="Sunday">Sun</button>
+                    <button type="button" id="clear-days" class="clear-days-btn">Clear Days</button>
+
+                </div>
+            </div>
+            
+            <div class="filter-option">
+                <label>Type:</label>
+                <div class="type-toggle">
+                    <button id="type-business" class="type-btn active" data-type="business">Business</button>
+                    <button id="type-community" class="type-btn" data-type="community">Community</button>
+                </div>
+            </div>
+            <div class="filter-option">
+                <label for="filter-time">Time of Day:</label>
+                <select id="filter-time">
+                    <option value="">Any</option>
+                    <option value="early">Early</option>
+                    <option value="late">Late</option>
+                </select>
+            </div>
+            <div class="filter-option">
+                <label for="filter-group-size">Group Size:</label>
+                <select id="filter-group-size">
+                    <option value="">Any</option>
+                    <option value="1-5">1-5</option>
+                    <option value="6-10">6-10</option>
+                    <option value="11-20">11-20</option>
+                    <option value="21-50">21-50</option>
+                    <option value="51+">More than 50</option>
+                </select>
+            </div>
+        </div>
+        <button id="apply-filters">Apply Filters</button>
+    </section>
+    
+    
+
+    <!-- Province Selection -->
+    <div class="selection-container">
+
 <select id="club-province">
     <option value="">Select Province</option>
     <option value="Alberta">Alberta</option>
@@ -33,7 +111,7 @@
     <option value="Y
     ukon">Yukon</option>
 </select>
-
+</div>
 
 <!-- City Selection, initially empty -->
 <select id="club-city">
@@ -41,19 +119,6 @@
     <!-- Options will be dynamically added based on province selection -->
 </select>
 
-    <div id="map" style="height: 300px;"></div>
-
-    <!-- City Not Listed Button -->
-    <section id="city-not-listed" style="display: none;">
-        <section id="start-club">
-            <h2>No clubs nearby? Start your own!</h2>
-            <!-- Checklist and recommendations here -->
-            <form id="new-club-form">
-              <!-- Form fields for new club submission -->
-            </form>
-          </section>
-          
-    </section>
 
     <section id="recommendation-form">
         <h2>Recommend a Club</h2>
@@ -68,8 +133,43 @@
     </section>
     <section id="club-list">
         <h2>Latest Clubs</h2>
-        <ul id="clubs"></ul>
+        <ul id="clubs">
+            <li id="sals-club">Sal's Club on Bloor and Spadina, Toronto</li>
+        </ul>
     </section>
+
+    <!-- Club Info Modal -->
+    <div id="club-info-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2 id="modal-club-name">Club Name</h2>
+            <div id="modal-club-days">Running Days:</div>
+            <p id="modal-club-type">Run Type: <span></span></p>
+            <p id="modal-club-affiliation">Affiliation: <span></span></p>
+            <a id="modal-club-social" href="#">Social Link</a>
+            <!-- Placeholder for the schedule table -->
+            <div class="table-responsive">
+                <table id="modal-schedule-table">
+                                    <thead>
+                    <tr>
+                        <th>Day</th>
+                        <th>Time</th>
+                        <th>Distance</th>
+                        <th>Duration</th>
+                        <th>Pace</th>
+                        <th>Intention</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Dynamic rows will be inserted here -->
+                </tbody>
+            </table>
+            </div>
+        </div>
+    </div>
+    
+
+
     <script src="app.js"></script>
 </body>
 </html>
