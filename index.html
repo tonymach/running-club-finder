@@ -33,7 +33,9 @@
 
     <section id="club-filters">
         <h2>Find Clubs That Suit You</h2>
-        <div class="filter-group">
+        <div class="summary-line" onclick="toggleFilters()">Select Filters...</div>
+
+        <div class="filter-group" id="filter-options" style="display: none;">
             <div class="filter-option">
                 <label>Days of the Week:</label>
                 <div id="filter-days" class="days-container">
@@ -50,9 +52,9 @@
             </div>
             
             <div class="filter-option">
-                <label>Type:</label>
+                <label>Controlled:</label>
                 <div class="type-toggle">
-                    <button id="type-professional" class="type-btn active" data-type="professional">Professional</button>
+                    <button id="type-professional" class="type-btn active" data-type="professional">Professionally</button>
                     <button id="type-community" class="type-btn" data-type="community">Community</button>
                 </div>
             </div>
@@ -113,7 +115,9 @@
 </div>
     
         </div>
-        <button id="apply-filters">Apply Filters</button>
+
+        <button id="apply-filters" style="display: none;" onclick="applyFilters()">Apply Filters</button>
+
     </section>
     
     <div id="map" style="height: 300px;"></div>

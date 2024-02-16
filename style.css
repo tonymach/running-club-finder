@@ -1,4 +1,47 @@
-/* Basic Reset */
+@keyframes shake {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    50% { transform: translateX(5px); }
+    75% { transform: translateX(-5px); }
+    100% { transform: translateX(0); }
+  }
+  
+  .summary-line {
+      cursor: pointer;
+      padding: 10px;
+      background-color: #e0e0e0;
+      border-radius: 5px;
+      margin-bottom: 10px;
+      font-weight: bold;
+      animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both infinite;
+      transform: translate3d(0, 0, 0);
+      box-shadow: 0 0 10px #00000050;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+  }
+  
+  .summary-line:hover {
+      background-color: #d0d0d0;
+      animation: none; /* Stops the animation when the mouse hovers over it */
+  }
+  
+
+.filter-group {
+    transition: max-height 0.5s ease-out;
+    overflow: hidden;
+    max-height: 0; /* Initially hidden */
+}
+
+#apply-filters {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #4CAF50; /* Green */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+
 .top-section {
     text-align: center; /* Center-aligns the content */
     background-color: #f9f7f7; /* Soft background color */
@@ -54,7 +97,7 @@ li {
 
 body {
     font-family: 'Poppins', sans-serif;
-    background-color: #f9f7f7;
+    background: linear-gradient(to right, #f9f7f7, #dbe2ef); /* Gentle gradient */
     color: #112d4e;
     padding: 20px;
     line-height: 1.6;
@@ -417,13 +460,13 @@ input:focus, textarea:focus, button:focus {
 }
 
 #apply-filters {
-    background-color: #3f72af;
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #4CAF50; /* Green */
     color: white;
     border: none;
-    padding: 10px 20px;
     border-radius: 5px;
     cursor: pointer;
-    font-weight: bold;
 }
 
 #apply-filters:hover {
@@ -613,4 +656,54 @@ input[type="checkbox"]:checked + .toggle-label .toggle-ball {
 
 #recommend-club-btn:hover {
     background-color: #c53727; /* Darker shade on hover */
+}
+
+.day-btn, .time-btn, .type-btn, .group-size-btn, #apply-filters, .clear-days-btn {
+    background-color: #fff; /* White background */
+    color: #112d4e; /* Text color - dark blue for contrast */
+    border: 1px solid #dbe2ef; /* Light border for subtle definition */
+    border-radius: 5px; /* Rounded corners */
+    padding: 10px; /* Padding for spacing */
+    margin: 5px; /* Margin for spacing between buttons */
+    cursor: pointer; /* Cursor to pointer to indicate it's clickable */
+    transition: background-color 0.3s, border-color 0.3s, color 0.3s; /* Transition for interactive effects */
+}
+
+.day-btn:hover, .time-btn:hover, .type-btn:hover, .group-size-btn:hover, #apply-filters:hover, .clear-days-btn:hover {
+    background-color: #f9f7f7; /* Slightly different background on hover for feedback */
+    border-color: #3f72af; /* Highlight border on hover */
+    color: #3f72af; /* Text color change on hover for better visibility */
+}
+
+/* Active state styling for buttons to indicate selection */
+.day-btn.active, .time-btn.active, .type-btn.active, .group-size-btn.active {
+    background-color: #dbe2ef; /* Light blue background for active state */
+    color: #112d4e; /* Dark blue text for contrast */
+    border-color: #3f72af; /* Darker border to stand out */
+}
+
+#apply-filters {
+    background-color: #4CAF50; /* Keeping the green color for the apply button */
+    color: white; /* White text for readability */
+    border: none; /* No border for a clean look */
+    border-radius: 5px; /* Rounded corners for consistency */
+    padding: 10px 20px; /* Adequate padding for clickability */
+    margin-top: 20px; /* Margin to separate from other elements */
+    cursor: pointer; /* Cursor to pointer to indicate it's clickable */
+}
+
+#apply-filters:hover {
+    background-color: #3f72af; /* Change for hover to align with the theme */
+}
+
+/* Adjusting clear days button to match the new theme */
+.clear-days-btn {
+    background-color: #fff; /* White background to match other inputs */
+    color: #112d4e; /* Dark blue text for contrast */
+    border: 1px solid #dbe2ef; /* Light border for subtle definition */
+}
+
+.clear-days-btn:hover {
+    background-color: #f9f7f7; /* Light background on hover for feedback */
+    border-color: #3f72af; /* Highlight border on hover */
 }
