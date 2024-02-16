@@ -1,4 +1,51 @@
 /* Basic Reset */
+.top-section {
+    text-align: center; /* Center-aligns the content */
+    background-color: #f9f7f7; /* Soft background color */
+    padding: 20px 0; /* Adds padding above and below */
+    border-radius: 15px; /* Rounds the corners of the top section */
+    margin-bottom: 20px; /* Creates space below the section */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Adds a subtle shadow for depth */
+}
+
+.logo {
+    max-width: 100px; /* Sets a maximum width to the logo */
+    border-radius: 15px; /* Rounds the corners of the logo image */
+    margin-bottom: 20px; /* Creates space below the logo */
+}
+
+.explanation-section {
+    background-color: #ffffff; /* Makes the background white for contrast */
+    padding: 20px; /* Adds padding inside the section */
+    border-radius: 10px; /* Rounds the corners of the section */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Adds a subtle shadow for depth */
+    display: inline-block; /* Allows the section to not stretch full width */
+    max-width: 80%; /* Limits the maximum width for better readability */
+    text-align: left; /* Aligns text to the left */
+    margin-top: 20px; /* Ensures space between the title and this section */
+}
+
+h1 {
+    color: #3f72af; /* Sets the color of the main heading */
+    margin: 10px 0 30px; /* Adjusts spacing around the heading */
+}
+
+h2 {
+    color: #112d4e; /* Sets the color of the section heading */
+    margin-bottom: 15px; /* Creates space below the heading */
+}
+
+ol {
+    text-align: left; /* Ensures ordered list is aligned left */
+    display: inline-block; /* Aligns the list correctly with text */
+    text-align: start; /* Ensures proper alignment of list items */
+}
+
+li {
+    margin-bottom: 10px; /* Creates space between list items */
+}
+
+
 * {
     box-sizing: border-box;
     margin: 0;
@@ -101,20 +148,34 @@ input:focus, textarea:focus, button:focus {
     background-color: #fff; /* Optional: for a consistent background color */
 }
 
-/* Consistent Styling for All Select Dropdowns */
-select {
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 2px solid #112d4e;
-    border-radius: 5px;
-    background-color: #fff;
-    cursor: pointer;
+.selection-container select {
+    width: 100%; /* Makes the select elements fill their container */
+    padding: 10px 15px; /* Similar padding to the buttons */
+    border: 1px solid #ccc; /* Light grey border similar to button styles */
+    border-radius: 5px; /* Rounded corners */
+    background-color: #f0f0f0; /* Light background color */
+    color: #666; /* Text color */
+    cursor: pointer; /* Hand cursor on hover */
+    font-family: 'Poppins', sans-serif; /* Consistent font family */
+    margin-bottom: 10px; /* Spacing between elements */
+    -webkit-appearance: none; /* Removes default styling on WebKit browsers */
+    -moz-appearance: none; /* Removes default styling on Mozilla browsers */
+    appearance: none; /* Standard way to remove default arrow */
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 4 5"><path fill="%23666" d="M2 0L0 2h4zm0 5L0 3h4z"/></svg>'); /* Custom arrow icon */
+    background-repeat: no-repeat;
+    background-position: right 10px center; /* Position the arrow icon */
+    background-size: 12px; /* Size of the arrow icon */
 }
 
-/* Hover and Focus Effects for Interactivity */
-select:hover, select:focus {
-    border-color: #3f72af;
+.selection-container select:hover {
+    border-color: #3f72af; /* Hover state border color */
 }
+
+.selection-container select:focus {
+    outline: none; /* Removes default focus outline */
+    border-color: #3f72af; /* Focus state border color */
+}
+
 
 /* Consistent Styling for City and Other City Input */
 #club-city, #other-city {
@@ -172,6 +233,13 @@ select:hover, select:focus {
     z-index: 1001; /* Ensure content is above the overlay */
 }
 
+/* Add this media query below your existing CSS */
+@media (max-width: 768px) {
+    .modal-content {
+        width: 80%; /* Makes the modal wider on mobile devices */
+        margin: 10% auto; /* Keeps the modal centered */
+    }
+}
 .modal-content h2, .modal-content p, .modal-content a {
     border-bottom: 1px solid #dbe2ef; /* Adds a subtle line under each item for distinction */
     padding-bottom: 10px; /* Adds space below each item */
@@ -214,7 +282,7 @@ select:hover, select:focus {
 .day-active {
     background-color: #ffffff; /* White for active days */
     color: #112d4e; /* Consistent with the website's color scheme */
-    border: 1px solid #3f72af; /* Light blue border for active days */
+    /* border: 1px solid #3f72af; Light blue border for active days */
 }
 
 
@@ -299,10 +367,10 @@ select:hover, select:focus {
 
 .explanation-section {
     background-color: #f9f7f7;
-    padding: 20px;
+    padding: 50px;
     border-radius: 10px;
     margin: 20px auto;
-    width: 80%;
+    width: 90%;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
@@ -317,33 +385,35 @@ select:hover, select:focus {
 
 
 #club-filters {
-    background-color: #f9f7f7;
-    padding: 20px;
-    border-radius: 10px;
-    margin: 20px auto;
-    width: 80%;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    text-align: center;
+    background-color: #ffffff; /* Pure white background */
+    padding: 25px; /* Increased padding for more space */
+    border-radius: 15px; /* More pronounced rounded corners */
+    margin: 20px auto; /* Adjusted margin for better alignment */
+    width: 90%; /* Adjusted width for a more contained look */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1); /* Softer shadow for a subtle depth */
+    text-align: left; /* Align text to the left for a cleaner look */
+    color: #112d4e; /* Keeping the text color for readability */
 }
 
+/* Filter Group and Options */
 .filter-group {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px;
-    margin-bottom: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Responsive grid layout */
+    gap: 25px; /* Increased gap for more breathing space */
 }
 
 .filter-option {
-    background-color: #ffffff;
-    padding: 10px;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    background-color: #f8f9fa; /* Very light grey for a subtle distinction */
+    padding: 15px; /* Increased padding for more room */
+    border-radius: 10px; /* Soft rounded corners */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05); /* Even softer shadow for depth */
 }
 
 .filter-option label {
-    display: block;
-    margin: 5px 0;
+    font-weight: 600; /* Make labels slightly bolder */
+    color: #3f72af; /* Use theme color for labels */
+    margin-bottom: 15px; /* Add more space below the label */
+    display: block; /* Ensure it's block for the margin to work */
 }
 
 #apply-filters {
@@ -382,7 +452,6 @@ select, input[type="checkbox"] {
 .day-btn.active {
     background-color: #3f72af;
     color: white;
-    border-color: #3f72af;
 }
 
 .toggle-switch {
@@ -416,32 +485,37 @@ input[type="checkbox"]:checked + .toggle-label .toggle-ball {
     padding: 0 5px;
 }
 
-.text-business, .text-community {
+.text-professional, .text-community {
     font-size: 12px;
     color: #666;
     user-select: none;
 }
-
 .type-toggle {
     display: flex;
     border: 2px solid #f0f0f0; /* Light gray border */
     border-radius: 20px;
     overflow: hidden;
+    padding: 2px;
+    background-color: #f0f0f0; /* Background of the toggle container */
 }
 
 .type-btn {
     flex: 1;
-    padding: 10px 20px;
     background-color: #f0f0f0;
+    color: #666;
     border: none;
+    border-radius: 18px; /* Slightly less than the container to fit nicely */
+    padding: 10px 20px;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s, color 0.3s;
+    user-select: none;
 }
 
 .type-btn.active {
-    background-color: #add8e6; /* Pastel blue for active state */
-    color: white;
+    background-color: #3f72af; /* Active state background */
+    color: white; /* Active state text color */
 }
+
 
 /* Adjusting for pastel colors */
 .day-btn {
@@ -467,16 +541,76 @@ input[type="checkbox"]:checked + .toggle-label .toggle-ball {
 }
 
 .clear-days-btn {
-    background-color: #f2f2f2; /* Slightly different to distinguish from day buttons */
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 5px 10px;
-    margin-top: 10px; /* Give some space from the day buttons */
-    cursor: pointer;
-    color: #666; /* Subdued color for the text */
+    background-color: #f2f2f2; /* Light grey background */
+    border: 1px solid #ccc; /* Light grey border */
+    border-radius: 5px; /* Rounded corners */
+    padding: 10px 15px; /* Increased padding for better clickability */
+    margin-top: 10px; /* Space above the button */
+    cursor: pointer; /* Hand cursor on hover */
+    color: #333; /* Darker text for better readability */
+    font-weight: bold; /* Makes text bold */
+    text-transform: uppercase; /* Uppercase text for emphasis */
+    letter-spacing: 1px; /* More space between letters */
+    transition: background-color 0.3s, box-shadow 0.3s, transform 0.3s; /* Smooth transition for hover effects */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
 }
 
 .clear-days-btn:hover {
-    background-color: #e0e0e0; /* Slightly darker on hover */
+    background-color: #d6d6d6; /* Slightly darker shade on hover */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Larger shadow on hover for a "lifting" effect */
+    transform: translateY(-2px); /* Slightly raise the button */
 }
 
+.clear-days-btn:active {
+    transform: translateY(1px); /* Slightly depress the button when clicked */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Revert to smaller shadow when clicked */
+}
+
+
+
+.time-btn, .group-size-btn {
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+    margin: 2px;
+}
+
+.time-btn.active, .group-size-btn.active {
+    background-color: #3f72af;
+    color: white;
+    border-color: #3f72af;
+}
+
+
+.site-footer {
+    background-color: #dbe2ef; /* Footer background color */
+    color: #f9f7f7; /* Footer text color */
+    padding: 20px 0; /* Footer padding */
+    text-align: center; /* Center-align the footer content */
+    border-top: 2px solid #dbe2ef; /* Optional: adds a top border to the footer */
+    border-radius: 8px; /* Rounded corners */
+
+}
+
+.footer-content {
+    max-width: 1200px; /* Max width for the footer content */
+    margin: 0 auto; /* Centers the footer content */
+    padding: 0 20px; /* Padding on the sides */
+}
+
+#recommend-club-btn {
+    background-color: #f44336; /* Button background color */
+    color: white; /* Button text color */
+    padding: 12px 24px; /* Button padding */
+    border: none; /* Removes border */
+    border-radius: 5px; /* Rounded corners for the button */
+    cursor: pointer; /* Changes cursor to pointer */
+    font-size: 16px; /* Button font size */
+    transition: background-color 0.3s; /* Smooth transition for hover effect */
+}
+
+#recommend-club-btn:hover {
+    background-color: #c53727; /* Darker shade on hover */
+}

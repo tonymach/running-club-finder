@@ -4,6 +4,47 @@ document.querySelectorAll('.day-btn').forEach(btn => {
     });
 });
 
+document.getElementById('filter-time').addEventListener('change', function() {
+    var iconClassMap = {
+        '': '', // No icon for 'Any'
+        'super-early': 'super-early',
+        'early': 'early',
+        'lunch': 'lunch',
+        'late-afternoon': 'late-afternoon',
+        'late': 'late'
+    };
+    var selectedValue = this.value;
+    var iconElement = document.getElementById('time-icon');
+    iconElement.className = 'time-icon ' + iconClassMap[selectedValue];
+});
+
+// Get the modal
+var recommendClubModal = document.getElementById("recommend-club-modal");
+
+// Get the button that opens the modal
+var btn = document.getElementById("recommend-club-btn");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close-button")[0]; // Assuming it's the first one in your document
+
+// When the user clicks the button, open the modal 
+btn.onclick = function() {
+    recommendClubModal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+    recommendClubModal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == recommendClubModal) {
+        recommendClubModal.style.display = "none";
+    }
+}
+
+
 document.querySelectorAll('.type-btn').forEach(btn => {
     btn.addEventListener('click', function() {
         document.querySelectorAll('.type-btn').forEach(b => b.classList.remove('active')); // Remove 'active' from all
@@ -18,6 +59,49 @@ document.getElementById('clear-days').addEventListener('click', function() {
     });
 });
 
+// Function to get all active times
+function getActiveTimes() {
+    const activeTimes = [];
+    document.querySelectorAll('.time-btn.active').forEach(btn => {
+        activeTimes.push(btn.getAttribute('data-time'));
+    });
+    return activeTimes;
+}
+
+// Function to get all active group sizes
+function getActiveGroupSizes() {
+    const activeGroupSizes = [];
+    document.querySelectorAll('.group-size-btn.active').forEach(btn => {
+        activeGroupSizes.push(btn.getAttribute('data-group-size'));
+    });
+    return activeGroupSizes;
+}
+
+// Example usage
+document.getElementById('apply-filters').addEventListener('click', () => {
+    const selectedTimes = getActiveTimes();
+    const selectedGroupSizes = getActiveGroupSizes();
+    console.log('Selected Times:', selectedTimes);
+    console.log('Selected Group Sizes:', selectedGroupSizes);
+    // Proceed to filter or use the selected options as needed
+});
+
+
+// For Time of Day buttons
+document.querySelectorAll('.time-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+        // Toggle 'active' class on click without affecting other buttons
+        btn.classList.toggle('active');
+    });
+});
+
+// For Group Size buttons
+document.querySelectorAll('.group-size-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+        // Toggle 'active' class on click without affecting other buttons
+        btn.classList.toggle('active');
+    });
+});
 
 
 document.addEventListener('DOMContentLoaded', () => {

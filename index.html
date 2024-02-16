@@ -13,6 +13,9 @@
     
 </head>
 <body>
+
+<div class="top-section">
+    <img src="images/cntower.png" alt="Running Club Logo" class="logo">
     <h1>Find Your Running Club</h1>
 
     <section class="explanation-section">
@@ -25,21 +28,8 @@
             <li>If you can’t find your city or a club near you, you can recommend a new club or start one yourself!</li>
         </ol>
     </section>
+</div>
 
-    
-    <div id="map" style="height: 300px;"></div>
-
-    <!-- City Not Listed Button -->
-    <section id="city-not-listed" style="display: none;">
-        <section id="start-club">
-  <h2>No clubs nearby? Start your own!</h2>
-  <!-- Checklist and recommendations here -->
-  <form id="new-club-form">
-    <!-- Form fields for new club submission -->
-  </form>
-</section>
-
-    </section>
 
     <section id="club-filters">
         <h2>Find Clubs That Suit You</h2>
@@ -62,81 +52,116 @@
             <div class="filter-option">
                 <label>Type:</label>
                 <div class="type-toggle">
-                    <button id="type-business" class="type-btn active" data-type="business">Business</button>
+                    <button id="type-professional" class="type-btn active" data-type="professional">Professional</button>
                     <button id="type-community" class="type-btn" data-type="community">Community</button>
                 </div>
             </div>
+
             <div class="filter-option">
-                <label for="filter-time">Time of Day:</label>
-                <select id="filter-time">
-                    <option value="">Any</option>
-                    <option value="early">Early</option>
-                    <option value="late">Late</option>
-                </select>
+                <label>Time of Day:</label>
+                <div id="filter-time" class="time-container">
+                    <!-- Each time option as a button -->
+                    <button type="button" class="time-btn" data-time="super-early">Super Early Morning</button>
+                    <button type="button" class="time-btn" data-time="early">Early Morning</button>
+                    <button type="button" class="time-btn" data-time="lunch">Lunch Break</button>
+                    <button type="button" class="time-btn" data-time="late-afternoon">Late Afternoon</button>
+                    <button type="button" class="time-btn" data-time="late">Late Evening</button>
+                </div>
             </div>
+            
             <div class="filter-option">
-                <label for="filter-group-size">Group Size:</label>
-                <select id="filter-group-size">
-                    <option value="">Any</option>
-                    <option value="1-5">1-5</option>
-                    <option value="6-10">6-10</option>
-                    <option value="11-20">11-20</option>
-                    <option value="21-50">21-50</option>
-                    <option value="51+">More than 50</option>
-                </select>
+                <label>Group Size:</label>
+                <div id="filter-group-size" class="group-size-container">
+                    <!-- Each group size option as a button -->
+                    <button type="button" class="group-size-btn" data-group-size="1-5">1-5</button>
+                    <button type="button" class="group-size-btn" data-group-size="6-10">6-10</button>
+                    <button type="button" class="group-size-btn" data-group-size="11-20">11-20</button>
+                    <button type="button" class="group-size-btn" data-group-size="21-50">21-50</button>
+                    <button type="button" class="group-size-btn" data-group-size="51+">More than 50</button>
+                </div>
             </div>
+
+              <!-- Province Selection -->
+              <div class="filter-option location-selection">
+
+                <label>Location Preferences</label> <!-- Thoughtful title for the location container -->
+
+        <select id="club-province">
+            <option value="">Select Province</option>
+            <option value="Alberta">Alberta</option>
+            <option value="British Columbia">British Columbia</option>
+            <option value="Manitoba">Manitoba</option>
+            <option value="New Brunswick">New Brunswick</option>
+            <option value="Newfoundland and Labrador">Newfoundland and Labrador</option>
+            <option value="Nova Scotia">Nova Scotia</option>
+            <option value="Ontario">Ontario</option>
+            <option value="Prince Edward Island">Prince Edward Island</option>
+            <option value="Quebec">Quebec</option>
+            <option value="Saskatchewan">Saskatchewan</option>
+            <option value="Northwest Territories">Northwest Territories</option>
+            <option value="Nunavut">Nunavut</option>
+            <option value="Yukon">Yukon</option>
+        </select>
+        
+
+    <!-- City Selection, initially empty -->
+    <select id="club-city">
+        <option value="">Select City</option>
+        <!-- Options will be dynamically added based on province selection -->
+    </select>
+                
+</div>
+    
         </div>
         <button id="apply-filters">Apply Filters</button>
     </section>
     
-    
+    <div id="map" style="height: 300px;"></div>
 
-    <!-- Province Selection -->
-    <div class="selection-container">
+    <!-- City Not Listed Button -->
+    <section id="city-not-listed" style="display: none;">
+        <section id="start-club">
+  <h2>No clubs nearby? Start your own!</h2>
+  <!-- Checklist and recommendations here -->
+  <form id="new-club-form">
+    <!-- Form fields for new club submission -->
+  </form>
+</section>
 
-<select id="club-province">
-    <option value="">Select Province</option>
-    <option value="Alberta">Alberta</option>
-    <option value="British Columbia">British Columbia</option>
-    <option value="Manitoba">Manitoba</option>
-    <option value="New Brunswick">New Brunswick</option>
-    <option value="Newfoundland and Labrador">Newfoundland and Labrador</option>
-    <option value="Nova Scotia">Nova Scotia</option>
-    <option value="Ontario">Ontario</option>
-    <option value="Prince Edward Island">Prince Edward Island</option>
-    <option value="Quebec">Quebec</option>
-    <option value="Saskatchewan">Saskatchewan</option>
-    <option value="Northwest Territories">Northwest Territories</option>
-    <option value="Nunavut">Nunavut</option>
-    <option value="Y
-    ukon">Yukon</option>
-</select>
-</div>
-
-<!-- City Selection, initially empty -->
-<select id="club-city">
-    <option value="">Select City</option>
-    <!-- Options will be dynamically added based on province selection -->
-</select>
+    </section>
 
 
-    <section id="recommendation-form">
+<!-- Recommend a Club Modal -->
+<div id="recommend-club-modal" class="modal" style="display:none;">
+    <div class="modal-content">
+        <span class="close-button">&times;</span>
         <h2>Recommend a Club</h2>
         <form id="club-form">
             <input type="text" id="club-name" placeholder="Club Name" required>
             <input type="text" id="club-location" placeholder="Location" required>
             <textarea id="club-description" placeholder="Club Description" required></textarea>
             <input type="text" id="club-social" placeholder="Social Media Link" required>
-
             <button type="submit">Recommend Club</button> 
         </form>
-    </section>
+    </div>
+</div>
+
+
     <section id="club-list">
         <h2>Latest Clubs</h2>
         <ul id="clubs">
             <li id="sals-club">Sal's Club on Bloor and Spadina, Toronto</li>
         </ul>
     </section>
+
+
+    <footer class="site-footer">
+        <div class="footer-content">
+            <button id="recommend-club-btn">Recommend a Club</button>
+            <!-- You can add more content here like links, social media icons, or contact info -->
+        </div>
+    </footer>
+    
 
     <!-- Club Info Modal -->
     <div id="club-info-modal" class="modal">
