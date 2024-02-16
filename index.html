@@ -39,6 +39,8 @@
             <div class="filter-option">
                 <label>Days of the Week:</label>
                 <div id="filter-days" class="days-container">
+
+                    <button type="button" class="day-btn any">Any</button>
                     <button type="button" class="day-btn" data-day="Monday">Mon</button>
                     <button type="button" class="day-btn" data-day="Tuesday">Tue</button>
                     <button type="button" class="day-btn" data-day="Wednesday">Wed</button>
@@ -53,33 +55,47 @@
             
             <div class="filter-option">
                 <label>Controlled:</label>
-                <div class="type-toggle">
-                    <button id="type-professional" class="type-btn active" data-type="professional">Professionally</button>
-                    <button id="type-community" class="type-btn" data-type="community">Community</button>
+                <div id="filter-type" class="type-container days-container">
+                    <!-- Button-like selections for Controlled type -->
+                    <button type="button" class="type-btn any">Any</button>
+                    <button type="button" class="type-btn" data-type="community">Community</button>
+                    <button type="button" class="type-btn" data-type="professional">Professionally</button>
+                    <button type="button" id="clear-type" class="clear-type-btn">Clear Type</button>
                 </div>
             </div>
+            
 
             <div class="filter-option">
                 <label>Time of Day:</label>
-                <div id="filter-time" class="time-container">
+                <div id="filter-time" class="time-container days-container">
                     <!-- Each time option as a button -->
+                    <button type="button" class="time-btn any">Any</button>
+
                     <button type="button" class="time-btn" data-time="super-early">Super Early Morning</button>
                     <button type="button" class="time-btn" data-time="early">Early Morning</button>
                     <button type="button" class="time-btn" data-time="lunch">Lunch Break</button>
                     <button type="button" class="time-btn" data-time="late-afternoon">Late Afternoon</button>
                     <button type="button" class="time-btn" data-time="late">Late Evening</button>
+
+
+                    <button type="button" id="clear-time" class="clear-time-btn">Clear Time</button>
+
                 </div>
             </div>
             
             <div class="filter-option">
                 <label>Group Size:</label>
-                <div id="filter-group-size" class="group-size-container">
-                    <!-- Each group size option as a button -->
+                <div id="filter-group-size" class="group-size-container days-container">
+
+                    <button type="button" class="group-size-btn any">Any</button>
                     <button type="button" class="group-size-btn" data-group-size="1-5">1-5</button>
                     <button type="button" class="group-size-btn" data-group-size="6-10">6-10</button>
                     <button type="button" class="group-size-btn" data-group-size="11-20">11-20</button>
                     <button type="button" class="group-size-btn" data-group-size="21-50">21-50</button>
                     <button type="button" class="group-size-btn" data-group-size="51+">More than 50</button>
+
+                    <button type="button" id="clear-group-size" class="clear-group-size-btn">Clear Group Size</button>
+
                 </div>
             </div>
 
@@ -87,31 +103,33 @@
               <div class="filter-option location-selection">
 
                 <label>Location Preferences</label> <!-- Thoughtful title for the location container -->
+                <div class="days-container">
+                    <select id="club-province">
+                        <option value="">Select Province</option>
+                        <option value="Alberta">Alberta</option>
+                        <option value="British Columbia">British Columbia</option>
+                        <option value="Manitoba">Manitoba</option>
+                        <option value="New Brunswick">New Brunswick</option>
+                        <option value="Newfoundland and Labrador">Newfoundland and Labrador</option>
+                        <option value="Nova Scotia">Nova Scotia</option>
+                        <option value="Ontario">Ontario</option>
+                        <option value="Prince Edward Island">Prince Edward Island</option>
+                        <option value="Quebec">Quebec</option>
+                        <option value="Saskatchewan">Saskatchewan</option>
+                        <option value="Northwest Territories">Northwest Territories</option>
+                        <option value="Nunavut">Nunavut</option>
+                        <option value="Yukon">Yukon</option>
+                    </select>
+                    
+            
+                <!-- City Selection, initially empty -->
+                <select id="club-city">
+                    <option value="">Select City</option>
+                    <!-- Options will be dynamically added based on province selection -->
+                </select>
+                            
+                </div>
 
-        <select id="club-province">
-            <option value="">Select Province</option>
-            <option value="Alberta">Alberta</option>
-            <option value="British Columbia">British Columbia</option>
-            <option value="Manitoba">Manitoba</option>
-            <option value="New Brunswick">New Brunswick</option>
-            <option value="Newfoundland and Labrador">Newfoundland and Labrador</option>
-            <option value="Nova Scotia">Nova Scotia</option>
-            <option value="Ontario">Ontario</option>
-            <option value="Prince Edward Island">Prince Edward Island</option>
-            <option value="Quebec">Quebec</option>
-            <option value="Saskatchewan">Saskatchewan</option>
-            <option value="Northwest Territories">Northwest Territories</option>
-            <option value="Nunavut">Nunavut</option>
-            <option value="Yukon">Yukon</option>
-        </select>
-        
-
-    <!-- City Selection, initially empty -->
-    <select id="club-city">
-        <option value="">Select City</option>
-        <!-- Options will be dynamically added based on province selection -->
-    </select>
-                
 </div>
     
         </div>
@@ -197,6 +215,17 @@
         </div>
     </div>
     
+    <!-- Fallback Location Modal -->
+<div id="location-fallback-modal" class="modal" style="display:none;">
+    <div class="modal-content">
+        <span class="close-button">&times;</span>
+        <h2>Enter Your Location</h2>
+        <p>We need your location to find running clubs near you. Please enter your city or region:</p>
+        <input type="text" id="user-city" placeholder="City or Region">
+        <button id="submit-location">Submit</button> 
+    </div>
+</div>
+
 
 
     <script src="app.js"></script>

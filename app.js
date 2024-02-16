@@ -1,7 +1,97 @@
+document.addEventListener('DOMContentLoaded', function() {
+    var map = L.map('map').setView([51.505, -0.09], 13);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+            // Success case
+            var lat = position.coords.latitude;
+            var lng = position.coords.longitude;
+            map.setView([lat, lng], 13);
+            L.marker([lat, lng]).addTo(map)
+                .bindPopup('You are here.')
+                .openPopup();
+        }, function() {
+            // User denied geolocation prompt or it failed
+            showFallbackModal();
+        });
+    } else {
+        // Geolocation is not supported
+        alert('Geolocation is not supported by your browser.');
+    }
+    
+    function showFallbackModal() {
+        document.getElementById('location-fallback-modal').style.display = 'block';
+    }
+
+    document.querySelector('.close-button').addEventListener('click', function() {
+        document.getElementById('location-fallback-modal').style.display = 'none';
+    });
+
+    document.getElementById('submit-location').addEventListener('click', function() {
+        var userCity = document.getElementById('user-city').value;
+        if (userCity) {
+            geocodeLocation(userCity,map);
+        }
+        document.getElementById('location-fallback-modal').style.display = 'none';
+    });
+});
+
+// Function to geocode the user-entered location and update the map
+function geocodeLocation(location,map) {
+    fetch(`https://nominatim.openstreetmap.org/search?city=${encodeURIComponent(location)}&format=json&limit=1`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.length > 0) {
+                const lat = data[0].lat;
+                const lon = data[0].lon;
+                // Assuming 'map' is your Leaflet map variable
+                map.setView([lat, lon], 13);
+                L.marker([lat, lon]).addTo(map)
+                    .bindPopup(`Location: ${location}`)
+                    .openPopup();
+            } else {
+                alert('Location not found. Please try another search.');
+            }
+        })
+        .catch(error => console.log('Error geocoding location:', error));
+}
+
+
 document.querySelectorAll('.day-btn').forEach(btn => {
     btn.addEventListener('click', () => {
         btn.classList.toggle('active');
     });
+});
+document.addEventListener('DOMContentLoaded', function() {
+    // Function to toggle options in a category based on the "Any" button's state
+    function toggleAnyOptions(containerSelector, btnClass) {
+        const container = document.querySelector(containerSelector);
+        const anyBtn = container.querySelector('.any');
+        const options = container.querySelectorAll(btnClass + ':not(.any)'); // Exclude the "Any" button itself
+        
+        // Determine if any options are already active (excluding the "Any" button itself)
+        const anyActive = Array.from(options).some(btn => btn.classList.contains('active'));
+        
+        // If any options are active, clicking "Any" will clear them. Otherwise, it will activate them.
+        if (anyActive) {
+            // Clear all options
+            options.forEach(btn => btn.classList.remove('active'));
+        } else {
+            // Activate all options
+            options.forEach(btn => btn.classList.add('active'));
+        }
+
+        // Toggle the "Any" button's active state based on the presence of any active options
+        anyBtn.classList.toggle('active', !anyActive);
+    }
+
+    // Setup event listeners for the "Any" buttons within each filter category
+    document.querySelector('#filter-days .any').addEventListener('click', () => toggleAnyOptions('#filter-days', '.day-btn'));
+    document.querySelector('#filter-time .any').addEventListener('click', () => toggleAnyOptions('#filter-time', '.time-btn'));
+    document.querySelector('#filter-group-size .any').addEventListener('click', () => toggleAnyOptions('#filter-group-size', '.group-size-btn'));
 });
 
 function toggleFilters() {
@@ -127,12 +217,16 @@ window.onclick = function(event) {
     }
 }
 
-
 document.querySelectorAll('.type-btn').forEach(btn => {
     btn.addEventListener('click', function() {
-        document.querySelectorAll('.type-btn').forEach(b => b.classList.remove('active')); // Remove 'active' from all
-        btn.classList.add('active'); // Add 'active' to clicked button
-        // Optionally set a variable or form value based on the selected type
+        document.querySelectorAll('.type-btn').forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+    });
+});
+
+document.getElementById('clear-type').addEventListener('click', function() {
+    document.querySelectorAll('.type-btn').forEach(btn => {
+        btn.classList.remove('active');
     });
 });
 
@@ -141,6 +235,21 @@ document.getElementById('clear-days').addEventListener('click', function() {
         btn.classList.remove('active');
     });
 });
+
+document.getElementById('clear-time').addEventListener('click', function() {
+    // Iterate through all time buttons and remove active class or reset selection
+    document.querySelectorAll('#filter-time .time-btn').forEach(btn => {
+        btn.classList.remove('active'); // Assuming you use an 'active' class to mark selection
+    });
+});
+
+document.getElementById('clear-group-size').addEventListener('click', function() {
+    // Iterate through all group size buttons and remove active class or reset selection
+    document.querySelectorAll('#filter-group-size .group-size-btn').forEach(btn => {
+        btn.classList.remove('active'); // Similar assumption as above
+    });
+});
+
 
 // Function to get all active times
 function getActiveTimes() {
@@ -309,21 +418,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     }
 
-    
-    // Initialize Map
-    function initMap() {
-        const map = L.map('map').setView([56.1304, -106.3468], 5); // Default view
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '© OpenStreetMap contributors'
-        }).addTo(map);
-    
-        navigator.geolocation.getCurrentPosition(function(position) {
-            const { latitude, longitude } = position.coords;
-            map.setView([latitude, longitude], 13); // Set view to user's location
-        }, function(error) {
-            console.error("Geolocation failed: ", error);
-        });
-    }
+
     
 
     // Event Listeners
@@ -391,10 +486,5 @@ const salsClubDetails = {
             cityNotListedSection.style.display = 'none';
         }
     });
-
-    // Initialize functionalities
-    initMap();
-
-
     
 });

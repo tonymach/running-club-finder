@@ -583,31 +583,7 @@ input[type="checkbox"]:checked + .toggle-label .toggle-ball {
     color: white;
 }
 
-.clear-days-btn {
-    background-color: #f2f2f2; /* Light grey background */
-    border: 1px solid #ccc; /* Light grey border */
-    border-radius: 5px; /* Rounded corners */
-    padding: 10px 15px; /* Increased padding for better clickability */
-    margin-top: 10px; /* Space above the button */
-    cursor: pointer; /* Hand cursor on hover */
-    color: #333; /* Darker text for better readability */
-    font-weight: bold; /* Makes text bold */
-    text-transform: uppercase; /* Uppercase text for emphasis */
-    letter-spacing: 1px; /* More space between letters */
-    transition: background-color 0.3s, box-shadow 0.3s, transform 0.3s; /* Smooth transition for hover effects */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
-}
 
-.clear-days-btn:hover {
-    background-color: #d6d6d6; /* Slightly darker shade on hover */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Larger shadow on hover for a "lifting" effect */
-    transform: translateY(-2px); /* Slightly raise the button */
-}
-
-.clear-days-btn:active {
-    transform: translateY(1px); /* Slightly depress the button when clicked */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Revert to smaller shadow when clicked */
-}
 
 
 
@@ -658,52 +634,82 @@ input[type="checkbox"]:checked + .toggle-label .toggle-ball {
     background-color: #c53727; /* Darker shade on hover */
 }
 
+/* General button styling */
 .day-btn, .time-btn, .type-btn, .group-size-btn, #apply-filters, .clear-days-btn {
     background-color: #fff; /* White background */
-    color: #112d4e; /* Text color - dark blue for contrast */
-    border: 1px solid #dbe2ef; /* Light border for subtle definition */
+    color: #112d4e; /* Dark blue text for contrast */
+    border: 2px solid #dbe2ef; /* Thicker border for definition */
     border-radius: 5px; /* Rounded corners */
-    padding: 10px; /* Padding for spacing */
-    margin: 5px; /* Margin for spacing between buttons */
-    cursor: pointer; /* Cursor to pointer to indicate it's clickable */
-    transition: background-color 0.3s, border-color 0.3s, color 0.3s; /* Transition for interactive effects */
+    padding: 10px; /* Adequate padding */
+    margin: 5px; /* Margin for spacing */
+    cursor: pointer; /* Indicates clickable */
+    transition: background-color 0.3s, border-color 0.3s, color 0.3s, font-weight 0.3s; /* Smooth transitions for interaction */
 }
 
 .day-btn:hover, .time-btn:hover, .type-btn:hover, .group-size-btn:hover, #apply-filters:hover, .clear-days-btn:hover {
-    background-color: #f9f7f7; /* Slightly different background on hover for feedback */
-    border-color: #3f72af; /* Highlight border on hover */
-    color: #3f72af; /* Text color change on hover for better visibility */
+    background-color: #f9f7f7; /* Light background on hover for visual feedback */
+    border-color: #3f72af; /* Highlighted border on hover */
+    color: #3f72af; /* Text color change on hover for visibility */
 }
 
 /* Active state styling for buttons to indicate selection */
 .day-btn.active, .time-btn.active, .type-btn.active, .group-size-btn.active {
-    background-color: #dbe2ef; /* Light blue background for active state */
-    color: #112d4e; /* Dark blue text for contrast */
-    border-color: #3f72af; /* Darker border to stand out */
+    background-color: #3f72af; /* Vibrant background for active state */
+    color: #ffffff; /* White text for contrast and readability */
+    border-color: #2c598a; /* Slightly darker border for depth */
+    font-weight: bold; /* Bold text for emphasis */
 }
 
 #apply-filters {
-    background-color: #4CAF50; /* Keeping the green color for the apply button */
-    color: white; /* White text for readability */
-    border: none; /* No border for a clean look */
-    border-radius: 5px; /* Rounded corners for consistency */
-    padding: 10px 20px; /* Adequate padding for clickability */
-    margin-top: 20px; /* Margin to separate from other elements */
-    cursor: pointer; /* Cursor to pointer to indicate it's clickable */
+    background-color: #4CAF50; /* Green background */
+    color: white; /* White text */
+    border: 2px solid #4CAF50; /* Thicker matching border */
+    border-radius: 5px; /* Consistent rounded corners */
+    padding: 10px 20px; /* Padding for size */
+    margin-top: 20px; /* Margin for spacing */
+    cursor: pointer; /* Indicates clickable */
 }
 
 #apply-filters:hover {
-    background-color: #3f72af; /* Change for hover to align with the theme */
+    background-color: #368B2E; /* Darker green on hover */
+    border-color: #2E7B25; /* Darker border for contrast */
 }
 
-/* Adjusting clear days button to match the new theme */
-.clear-days-btn {
-    background-color: #fff; /* White background to match other inputs */
-    color: #112d4e; /* Dark blue text for contrast */
-    border: 1px solid #dbe2ef; /* Light border for subtle definition */
+
+
+
+/* Adjustments for the clear days button to match the theme */
+.clear-type-btn,
+.clear-days-btn,
+.clear-time-btn,
+.clear-group-size-btn {
+    background-color: #f2f2f2; /* Light grey background */
+    border: 1px solid #ccc; /* Light grey border */
+    border-radius: 5px; /* Rounded corners */
+    padding: 10px 15px; /* Increased padding for better clickability */
+    margin-top: 10px; /* Space above the button */
+    cursor: pointer; /* Hand cursor on hover */
+    color: #333; /* Darker text for better readability */
+    font-weight: bold; /* Makes text bold */
+    text-transform: uppercase; /* Uppercase text for emphasis */
+    letter-spacing: 1px; /* More space between letters */
+    transition: background-color 0.3s, box-shadow 0.3s, transform 0.3s; /* Smooth transition for hover effects */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+}
+.clear-type-btn:hover,
+.clear-days-btn:hover,
+.clear-time-btn:hover,
+.clear-group-size-btn:hover {
+    background-color: #d6d6d6; /* Slightly darker shade on hover */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Larger shadow on hover for a "lifting" effect */
+    transform: translateY(-2px); /* Slightly raise the button */
 }
 
-.clear-days-btn:hover {
-    background-color: #f9f7f7; /* Light background on hover for feedback */
-    border-color: #3f72af; /* Highlight border on hover */
+.clear-type-btn:hover,
+.clear-time-btn:active,
+.clear-group-size-btn:active
+.clear-days-btn:active {
+    transform: translateY(1px); /* Slightly depress the button when clicked */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Revert to smaller shadow when clicked */
 }
+
