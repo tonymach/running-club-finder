@@ -7,9 +7,13 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="styles/style.css">
+    <link rel="stylesheet" href="styles/leaflet.css">
+
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.fullscreen/3.0.1/Control.FullScreen.min.js" integrity="sha512-h/AgOL3/GaN95r67NWhssa2HgUk/+zfZsSkS/TU/rj0RPdQv9BMVq7BSKuUew5R68pDSFbOWydkIex28J7gy9g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     
 </head>
 <body>
@@ -99,43 +103,12 @@
                 </div>
             </div>
 
-              <!-- Province Selection -->
-              <div class="filter-option location-selection">
-
-                <label>Location Preferences</label> <!-- Thoughtful title for the location container -->
-                <div class="days-container">
-                    <select id="club-province">
-                        <option value="">Select Province</option>
-                        <option value="Alberta">Alberta</option>
-                        <option value="British Columbia">British Columbia</option>
-                        <option value="Manitoba">Manitoba</option>
-                        <option value="New Brunswick">New Brunswick</option>
-                        <option value="Newfoundland and Labrador">Newfoundland and Labrador</option>
-                        <option value="Nova Scotia">Nova Scotia</option>
-                        <option value="Ontario">Ontario</option>
-                        <option value="Prince Edward Island">Prince Edward Island</option>
-                        <option value="Quebec">Quebec</option>
-                        <option value="Saskatchewan">Saskatchewan</option>
-                        <option value="Northwest Territories">Northwest Territories</option>
-                        <option value="Nunavut">Nunavut</option>
-                        <option value="Yukon">Yukon</option>
-                    </select>
-                    
-            
-                <!-- City Selection, initially empty -->
-                <select id="club-city">
-                    <option value="">Select City</option>
-                    <!-- Options will be dynamically added based on province selection -->
-                </select>
-                            
-                </div>
-
-</div>
     
         </div>
 
+        <div id="apply-btn-container" style="text-align: ;">
         <button id="apply-filters" style="display: none;" onclick="applyFilters()">Apply Filters</button>
-
+            </div>
     </section>
     
     <div id="map" style="height: 300px;"></div>
@@ -227,7 +200,10 @@
 </div>
 
 
+<script src="js/leafletFullScreen.js"></script>
 
-    <script src="app.js"></script>
+    <script src="js/app.js"></script>
+
 </body>
+
 </html>

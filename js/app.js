@@ -1,8 +1,22 @@
 document.addEventListener('DOMContentLoaded', function() {
     var map = L.map('map').setView([51.505, -0.09], 13);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '© OpenStreetMap contributors'
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+        maxZoom: 18,
+        id: 'mapbox/streets-v11', // You can change "streets-v11" to other styles
+        tileSize: 512,
+        zoomOffset: -1,
+        accessToken: 'pk.eyJ1IjoicnVubmVyc2hpZ2hpbnN0IiwiYSI6ImNsc293d3VkaTBrM2Yya21wOGs5amltZzEifQ.wrp2n2y_MOPmKCQCrVulKQ'
     }).addTo(map);
+
+    map.addControl(new L.Control.FullScreen({
+        position: 'topright', // change the position
+        title: 'Show me the full map', // title when not fullscreen
+        titleCancel: 'Exit fullscreen mode', // title when fullscreen
+        forceSeparateButton: true, // force separate button to detach from zoom buttons, default false
+
+    }));
+
 
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function(position) {
@@ -37,6 +51,11 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         document.getElementById('location-fallback-modal').style.display = 'none';
     });
+});
+
+
+document.querySelector('.close-button').addEventListener('click', () => {
+    document.getElementById('club-info-modal').style.display = 'none';
 });
 
 // Function to geocode the user-entered location and update the map
@@ -151,16 +170,6 @@ function applyFilters() {
         filterSummary.push(`Group Size: ${groupSizeSummary}`);
     }
 
-    // Location: Directly add if selected
-    let provinceSelected = document.getElementById('club-province').value;
-    if (provinceSelected) {
-        filterSummary.push(`Province: ${provinceSelected}`);
-    }
-    let citySelected = document.getElementById('club-city').value;
-    if (citySelected) {
-        filterSummary.push(`City: ${citySelected}`);
-    }
-
     // Update the summary line
     let summaryLine = document.querySelector(".summary-line");
     summaryLine.style.fontWeight = 'bold'; // Make the summary line bold
@@ -190,6 +199,35 @@ document.getElementById('filter-time').addEventListener('change', function() {
     var iconElement = document.getElementById('time-icon');
     iconElement.className = 'time-icon ' + iconClassMap[selectedValue];
 });
+
+document.querySelectorAll('.close-button').forEach(button => {
+    button.addEventListener('click', () => {
+        toggleModal(null, 'close'); // Close any modal
+    });
+});
+
+window.addEventListener('click', (event) => {
+    if (event.target.classList.contains('modal')) {
+        toggleModal(null, 'close');
+    }
+});
+
+
+function toggleModal(modalId, state) {
+    // Close any open modal
+    document.querySelectorAll('.modal').forEach(modal => {
+        modal.style.display = 'none';
+    });
+
+    // If requested to open, change the display of the target modal
+    if (state === 'open') {
+        const modal = document.getElementById(modalId);
+        if (modal) {
+            modal.style.display = 'block';
+        }
+    }
+}
+
 
 // Get the modal
 var recommendClubModal = document.getElementById("recommend-club-modal");
@@ -297,12 +335,9 @@ document.querySelectorAll('.group-size-btn').forEach(btn => {
 
 
 document.addEventListener('DOMContentLoaded', () => {
-    const provinceSelect = document.getElementById('club-province');
-    const citySelect = document.getElementById('club-city');
     const clubForm = document.getElementById('club-form');
     const clubsContainer = document.getElementById('clubs');
     const cityNotListedSection = document.getElementById('city-not-listed');
-    const reportMissingCityBtn = document.getElementById('report-missing-city');
     
     // Function Declarations
     function addClub(name, location, description, social, city) {
@@ -454,37 +489,9 @@ const salsClubDetails = {
         openModalWithClubInfo(salsClubDetails);
     });
 
-    document.querySelector('.close-button').addEventListener('click', () => {
-        document.getElementById('club-info-modal').style.display = 'none';
-    });
 
-    provinceSelect.addEventListener('change', () => {
-        const selectedProvince = provinceSelect.value;
-        const cities = citiesByProvince[selectedProvince] || [];
-        citySelect.innerHTML = '<option value="">Select City</option>';
-        cities.forEach(city => {
-            const option = new Option(city, city);
-            citySelect.add(option);
-        });
-    });
 
-    clubForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        const clubName = document.getElementById('club-name').value;
-        const clubLocation = document.getElementById('club-location').value;
-        const clubDescription = document.getElementById('club-description').value;
-        const clubSocial = document.getElementById('club-social').value;
-        let city = citySelect.value;
-        addClub(clubName, clubLocation, clubDescription, clubSocial, city);
-        displayClubs();
-    });
 
-    document.getElementById('club-city').addEventListener('change', function() {
-        if (this.value === "") {
-            cityNotListedSection.style.display = 'block';
-        } else {
-            cityNotListedSection.style.display = 'none';
-        }
-    });
-    
+
+
 });
