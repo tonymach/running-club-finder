@@ -1,29 +1,4 @@
-@keyframes shake {
-    0% { transform: translateX(0); }
-    25% { transform: translateX(-5px); }
-    50% { transform: translateX(5px); }
-    75% { transform: translateX(-5px); }
-    100% { transform: translateX(0); }
-  }
-  
-  .summary-line {
-      cursor: pointer;
-      padding: 10px;
-      background-color: #e0e0e0;
-      border-radius: 5px;
-      margin-bottom: 10px;
-      font-weight: bold;
-      animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both infinite;
-      transform: translate3d(0, 0, 0);
-      box-shadow: 0 0 10px #00000050;
-      transition: background-color 0.3s ease, transform 0.3s ease;
-  }
-  
-  .summary-line:hover {
-      background-color: #d0d0d0;
-      animation: none; /* Stops the animation when the mouse hovers over it */
-  }
-  
+
 
 .filter-group {
     transition: max-height 0.5s ease-out;
@@ -52,9 +27,8 @@
 }
 
 .logo {
-    max-width: 100px; /* Sets a maximum width to the logo */
+    max-width: 150px; /* Sets a maximum width to the logo */
     border-radius: 15px; /* Rounds the corners of the logo image */
-    margin-bottom: 20px; /* Creates space below the logo */
 }
 
 .explanation-section {
@@ -350,24 +324,13 @@ input:focus, textarea:focus, button:focus {
 #modal-schedule-table th, #modal-schedule-table td {
     padding: 8px;
     text-align: left;
-    border: 1px solid #ccc; /* Ensure visibility against any background color */
-    font-weight: bold; /* Optional: Makes text more readable */
-
-}
-
-#modal-schedule-table tr:nth-child(even) {
-    background-color: #f2f2f2; /* Consider adjusting for readability with color coding */
+    border-bottom: 1px solid #ddd;
 }
 
 #modal-schedule-table th {
-    background-color: #f9f7f7; /* Light background for headers */
-    color: #112d4e;
+    background-color: #4CAF50;
+    color: white;
 }
-
-#modal-schedule-table tr:nth-child(even) {
-    background-color: #f2f2f2; /* Zebra striping for rows */
-}
-
 #running-timeline {
     position: relative;
     margin: 20px 0;
@@ -713,4 +676,152 @@ input[type="checkbox"]:checked + .toggle-label .toggle-ball {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Revert to smaller shadow when clicked */
 }
 
+.accordion-button {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+}
 
+.accordion-button:focus {
+    outline: none;
+}
+
+.accordion-collapse {
+    transition: max-height 0.2s ease-out;
+    overflow: hidden;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-top: none;
+}
+
+.accordion-button:not(.collapsed) {
+    background-color: #e9ecef;
+    color: #495057;
+}
+
+
+@keyframes shake {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    50% { transform: translateX(5px); }
+    75% { transform: translateX(-5px); }
+    100% { transform: translateX(0); }
+  }
+
+
+.find-group-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px; /* Adjust the gap between buttons as needed */
+}
+
+
+.find-group-btn, .summary-line {
+    cursor: pointer;
+    padding: 15px 25px; /* Slightly larger for desktop visibility */
+    font-size: 22px; /* Larger font size for clear readability */
+    background-color: #3f72af; /* Color aligned with your primary theme */
+    color: #ffffff; /* White text for contrast */
+    border-radius: 8px; /* Rounded corners for a modern look */
+    margin: 5px 0px; /* Adjusted margin for vertical spacing */
+    font-weight: bold; /* Bold font for emphasis */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), inset 0 2px 4px rgba(255, 255, 255, 0.2); /* Outer and inner shadow for depth */
+    border: none; /* Remove the border */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for interaction */
+}
+
+.find-group-btn:hover, .summary-line:hover {
+    transform: translateY(-2px); /* Lift effect on hover */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), inset 0 2px 4px rgba(255, 255, 255, 0.2); /* Enhanced shadow on hover */
+}
+
+/* Adjusting for mobile devices to ensure buttons stack vertically */
+@media (max-width: 768px) {
+    .find-group-container {
+        flex-direction: column; /* Stack the buttons vertically */
+        gap: 10px;
+    }
+
+    .find-group-btn, .summary-line {
+        padding: 12px 20px; /* Adjust padding for mobile */
+        font-size: 18px; /* Adjust font size for mobile */
+        width: auto; /* Auto width to fit content */
+        margin: 10px 0; /* Ensure there's space between buttons when stacked */
+    }
+}
+
+.ticker-wrap {
+    overflow: hidden;
+    position: relative;
+    background-color: transparent;
+    padding: 0;
+    white-space: nowrap;
+}
+
+/* Responsive font size adjustment */
+@media (max-width: 768px) {
+    .ticker-item {
+        font-size: 18px; /* Slightly smaller font for mobile devices */
+        padding-right: 15px; /* Adjusted spacing for smaller screens */
+    }
+}
+
+.ticker-wrap::before,
+.ticker-wrap::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 4px; /* Thickness of the separation line */
+    background-color: #3f72af; /* Color of the separation line */
+}
+
+.ticker-wrap::before {
+    top: 0; /* Position the line at the top */
+}
+
+.ticker-wrap::after {
+    bottom: 0; /* Position the line at the bottom */
+}
+
+
+.ticker {
+    display: flex;
+    animation: scrollText 20s linear infinite;
+    position: relative;
+    background: linear-gradient(to right, violet, indigo, blue, green, yellow, orange, red);
+    -webkit-background-clip: text;
+    color: transparent;
+    background-size: 200% 100%;
+}
+
+/* Adjustments to the ticker animation for scrolling */
+@keyframes scrollText {
+    from { transform: translateX(0%); }
+    to { transform: translateX(-50%); }
+}
+
+.ticker-item {
+    white-space: nowrap;
+    padding-right: 5px; /* Space between repetitions */
+    font-weight: bold;
+    color: #3f72af; /* Initial color, will be overridden by gradient */
+    font-size: 24px; /* Larger font size */
+}
+
+/* Scrolling text animation */
+@keyframes scrollText {
+    from { transform: translateX(0%); }
+    to { transform: translateX(-50%); }
+}
+
+/* Gradient background animation */
+@keyframes shiftGradient {
+    0% { background-position: 0% 0; }
+    100% { background-position: -200% 0; }
+}

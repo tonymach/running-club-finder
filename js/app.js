@@ -1,3 +1,60 @@
+document.addEventListener('DOMContentLoaded', () => {
+    const buttons = document.querySelectorAll('.find-group-btn, .summary-line');
+    // Start with all buttons shaking
+    startInitialShake(buttons);
+    // After the initial shake, start the sequential loop
+    setTimeout(() => {
+        shakeSequenceLoop(buttons);
+    }, 3000); // Wait for the initial shake to end
+});
+
+function startInitialShake(buttons) {
+    buttons.forEach(button => {
+        button.style.animation = 'shake 0.82s cubic-bezier(.36,.07,.19,.97) both infinite';
+    });
+    // Stop the initial shake after a short period
+    setTimeout(() => {
+        buttons.forEach(button => {
+            button.style.animation = 'none';
+        });
+    }, 3000); // Adjust time as needed based on desired initial shake duration
+}
+
+function shakeSequenceLoop(buttons) {
+    let index = 0;
+    function shakeNextButton() {
+        if (index < buttons.length) {
+            const button = buttons[index];
+            button.style.animation = 'shake 0.82s cubic-bezier(.36,.07,.19,.97) both';
+            setTimeout(() => {
+                button.style.animation = 'none';
+                index++;
+                shakeNextButton();
+            }, 820); // Match the CSS animation duration
+        } else {
+            // Reset for the next cycle after a pause
+            setTimeout(() => {
+                index = 0;
+                shakeNextButton();
+            }, 2000); // Pause between cycles
+        }
+    }
+    shakeNextButton();
+    
+    // Optionally, stop the loop when any button is clicked
+    buttons.forEach(button => {
+        button.addEventListener('click', () => {
+            buttons.forEach(btn => {
+                btn.style.animation = 'none';
+                // Remove the event listener to prevent restarting
+                btn.removeEventListener('click', shakeNextButton);
+            });
+        });
+    });
+}
+
+
+
 document.addEventListener('DOMContentLoaded', function() {
     var map = L.map('map').setView([51.505, -0.09], 13);
     L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
@@ -16,6 +73,7 @@ document.addEventListener('DOMContentLoaded', function() {
         forceSeparateButton: true, // force separate button to detach from zoom buttons, default false
 
     }));
+    
 
 
     if (navigator.geolocation) {
@@ -356,138 +414,91 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    function openModalWithClubInfo(club) {
-        document.getElementById('modal-club-name').innerText = club.name;
-    
-        // Create or clear the days container
-        const modalContent = document.querySelector('.modal-content');
-        let daysContainer = modalContent.querySelector('.days-container');
-        if (!daysContainer) {
-            daysContainer = document.createElement('div');
-            daysContainer.classList.add('days-container');
-            modalContent.insertBefore(daysContainer, modalContent.firstChild); // Insert before the first child
-        } else {
-            daysContainer.innerHTML = ''; // Clear existing content if reusing
-        }
-    
-
-        // Dynamically create day indicators
-        ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'].forEach(day => {
-            const dayBox = document.createElement('div');
-            dayBox.classList.add('day-box');
-            if (club.days[day] === "yes") {
-                dayBox.classList.add('day-active');
-            }
-            dayBox.innerText = day.substring(0, 3); // Use abbreviation for the day
-            daysContainer.appendChild(dayBox);
+    function toggleAccordionItem(collapseElement) {
+        const isShown = collapseElement.classList.contains('show');
+        // First, close all items
+        const allItems = document.querySelectorAll('.accordion-collapse');
+        allItems.forEach(item => {
+            item.classList.remove('show');
         });
-    
-        // Placeholder image
-        const image = modalContent.querySelector('.modal-image') || new Image();
-        image.src = "path/to/your/placeholder-image.jpg"; // Update with actual path
-        image.classList.add('modal-image');
-        if (!modalContent.contains(image)) {
-            modalContent.insertBefore(image, daysContainer); // Insert the image above the days container
+        // Then, if the clicked item was not already shown, open it
+        if (!isShown) {
+            collapseElement.classList.add('show');
         }
-    
-        document.getElementById('modal-club-type').innerText = 'Run Type: ' + club.type;
-        document.getElementById('modal-club-affiliation').innerText = 'Affiliation: ' + (club.affiliation ? club.affiliation : 'None');
-        document.getElementById('modal-club-social').href = club.social;
-        document.getElementById('modal-club-social').innerText = 'Visit Social Link';
-        document.getElementById('club-info-modal').style.display = 'block';
-
-            // Populate the schedule table
-    const scheduleTableBody = document.querySelector('#modal-schedule-table tbody');
-    scheduleTableBody.innerHTML = ''; // Clear previous entries
-
-    club.schedule.forEach(session => {
-        const row = document.createElement('tr');
-        
-        // Adding new properties to the session object for demonstration
-        session.pace = 'Mixed'; // Example, change as needed
-        session.intention = 'Training'; // Example, change as needed
-
-        const details = ['day', 'time', 'distance', 'duration', 'pace', 'intention'];
-        
-        details.forEach(detail => {
-            const cell = document.createElement('td');
-            cell.textContent = session[detail];
-            
-            // Apply color coding for distance
-            if (detail === 'distance') {
-                const distance = parseFloat(session[detail]);
-                cell.style.color = distance <= 5 ? '#4CAF50' : distance <= 10 ? '#FFEB3B' : '#F44336';
-            }
-            
-            // Color coding for pace and intention
-            if (detail === 'pace' || detail === 'intention') {
-                const colors = {
-                    // Pace colors
-                    'Fast': '#F44336', 'Mixed': '#FFC107', 'Jog': '#2196F3', 'Run-Walk': '#9E9E9E',
-                    // Intention colors
-                    'Social': '#E91E63', 'Fast': '#F44336', 'Training': '#3F51B5', 'Serious': '#009688'
-                };
-                cell.style.color = colors[session[detail]];
-            }
-
-            row.appendChild(cell);
-        });
-
-        document.querySelector('#modal-schedule-table tbody').appendChild(row);
-    });
-
-    const timeline = document.getElementById('running-timeline');
-    timeline.innerHTML = ''; // Clear previous content
-
-    club.schedule.forEach(session => {
-        const event = document.createElement('div');
-        event.classList.add('timeline-event');
-
-        const details = document.createElement('div');
-        details.classList.add('timeline-event-details');
-        details.innerHTML = `<strong>${session.day}</strong>: ${session.time}, ${session.distance}, ${session.duration}`;
-
-        event.appendChild(details);
-        timeline.appendChild(event);
-    });
-
     }
-
-
     
 
-    // Event Listeners
+    function openModalWithClubInfo(club) {
+        // Basic club info adjustments
+        document.getElementById('modal-club-name').innerText = club.name;
+        document.getElementById('modal-club-affiliation').innerText = club.affiliation === 'Professional' ? `Affiliation: Professional - ${club.businessName}` : 'Affiliation: Community';
+        document.getElementById('modal-club-social').href = club.social || '#';
+        document.getElementById('modal-club-social').innerText = club.social ? 'Visit Social Link' : '';
+        document.getElementById('club-info-modal').style.display = 'block';
+    
+        // Accordion for the Schedule - ensuring initial closure
+        const scheduleAccordion = document.getElementById('schedule-accordion');
+        scheduleAccordion.innerHTML = ''; // Clear existing accordion items
+        club.schedule.forEach((session, index) => {
+            const accordionItem = document.createElement('div');
+            accordionItem.className = 'accordion-item';
+            accordionItem.innerHTML = `
+                <div class="accordion-header" id="heading${index}">
+                    <h5 class="mb-0">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse${index}" aria-expanded="false" aria-controls="collapse${index}">
+                            ${session.day}
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapse${index}" class="accordion-collapse collapse" aria-labelledby="heading${index}">
+                    <div class="accordion-body">
+                        ${Object.keys(session).filter(key => session[key] !== undefined && key !== 'day').map(key => `<p>${key.charAt(0).toUpperCase() + key.slice(1)}: ${session[key]}</p>`).join('')}
+                    </div>
+                </div>
+            `;
+            scheduleAccordion.appendChild(accordionItem);
+        });
+    
+        // Manual accordion toggle functionality
+        scheduleAccordion.querySelectorAll('.accordion-button').forEach(button => {
+            button.addEventListener('click', function() {
+                // Toggle the "collapse" state of the target accordion item
+                const collapseElementId = this.getAttribute('data-bs-target');
+                const collapseElement = document.querySelector(collapseElementId);
+                collapseElement.classList.toggle('show');
+                
+                // Optionally, close other open items
+                document.querySelectorAll('.accordion-collapse').forEach(el => {
+                    if (el.id !== collapseElementId.substring(1)) { // Exclude the "#" in the id
+                        el.classList.remove('show');
+                    }
+                });
+            });
+        });
+    }
+    
+    // Event listener setup remains unchanged
     document.getElementById('sals-club').addEventListener('click', () => {
-const salsClubDetails = {
-    name: "Sal's Club",
-    days: { "Monday": "yes", "Tuesday": "no", "Wednesday": "yes", "Thursday": "no", "Friday": "yes", "Saturday": "no", "Sunday": "no" },
-    type: "Mixed (Casual and Competitive)",
-    affiliation: "Sponsored by Local Shoe Store",
-    social: "https://example.com/salsclub",
-    schedule: [
-        {
-            day: "Monday",
-            time: "6:00 PM",
-            distance: "5 km",
-            duration: "30 mins"
-        },
-        {
-            day: "Wednesday",
-            time: "6:00 PM",
-            distance: "8 km",
-            duration: "45 mins"
-        },
-        {
-            day: "Friday",
-            time: "6:00 PM",
-            distance: "10 km",
-            duration: "60 mins"
-        }
-    ]
-};
-
-        openModalWithClubInfo(salsClubDetails);
+        openModalWithClubInfo(salsClubDetails); // Assuming salsClubDetails is defined elsewhere
     });
+
+
+    const salsClubDetails = {
+        name: "Sal's Club",
+        // Assume days aggregation to be handled separately
+        affiliation: "Professional",
+        businessName: "Sal's Running Supplies", // New attribute for professional affiliation
+        social: "https://example.com/salsclub",
+        timeOfDay: "Evening",
+        groupSize: "11-20",
+        beginnerFriendly: true,
+        schedule: [
+            { day: "Monday", time: "6:00 PM", distance: "5 km", duration: "30 mins", pace: "Casual", intention: "Fun" },
+            { day: "Wednesday", time: "6:00 PM", distance: "8 km", duration: "45 mins", pace: "Moderate", intention: "Training" },
+            { day: "Friday", time: "6:00 PM", distance: "10 km", duration: "60 mins", pace: "Fast", intention: "Competition Prep" }
+        ]
+    };
+        
 
 
 

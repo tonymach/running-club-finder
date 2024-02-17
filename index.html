@@ -11,16 +11,39 @@
     <link rel="stylesheet" href="styles/leaflet.css">
 
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.fullscreen/3.0.1/Control.FullScreen.min.js" integrity="sha512-h/AgOL3/GaN95r67NWhssa2HgUk/+zfZsSkS/TU/rj0RPdQv9BMVq7BSKuUew5R68pDSFbOWydkIex28J7gy9g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    
+
+
 </head>
 <body>
 
 <div class="top-section">
+
+
     <img src="images/cntower.png" alt="Running Club Logo" class="logo">
+
     <h1>Find Your Running Club</h1>
+
+
+    <div class="ticker-wrap">
+        <div class="ticker">
+            <div class="ticker-item">DON'T RUN ALONE</div>
+            <div class="ticker-item">DON'T RUN ALONE</div>
+             <div class="ticker-item">DON'T RUN ALONE</div>
+             <div class="ticker-item">DON'T RUN ALONE</div>
+             <div class="ticker-item">DON'T RUN ALONE</div>
+             <div class="ticker-item">DON'T RUN ALONE</div>
+              <div class="ticker-item">DON'T RUN ALONE</div>
+              <div class="ticker-item">DON'T RUN ALONE</div>
+              <div class="ticker-item">DON'T RUN ALONE</div>
+              <div class="ticker-item">DON'T RUN ALONE</div>
+               <div class="ticker-item">DON'T RUN ALONE</div>
+               <div class="ticker-item">DON'T RUN ALONE</div>
+        </div>
+    </div>
+
+    
+
 
     <section class="explanation-section">
         <h2>How It Works</h2>
@@ -31,13 +54,25 @@
             <li>Click on a club to see more details, including running days, times, and the club’s social links.</li>
             <li>If you can’t find your city or a club near you, you can recommend a new club or start one yourself!</li>
         </ol>
+        
     </section>
 </div>
 
 
     <section id="club-filters">
-        <h2>Find Clubs That Suit You</h2>
-        <div class="summary-line" onclick="toggleFilters()">Select Filters...</div>
+        <h2>Find your perfect run</h2>
+
+        <div class="filter-option">
+            <label>Quick Find:</label>
+            <div class="find-group-container">
+                <button type="button" class="find-group-btn" id="find-today">Join Today's Run</button>
+                <button type="button" class="find-group-btn" id="find-tomorrow">Plan for Tomorrow</button>
+                <button type="button" class="summary-line" onclick="toggleFilters()">More Options...</button>
+            </div>
+        </div>
+        
+        
+
 
         <div class="filter-group" id="filter-options" style="display: none;">
             <div class="filter-option">
@@ -110,21 +145,44 @@
         <button id="apply-filters" style="display: none;" onclick="applyFilters()">Apply Filters</button>
             </div>
     </section>
-    
+        
     <div id="map" style="height: 300px;"></div>
 
-    <!-- City Not Listed Button -->
-    <section id="city-not-listed" style="display: none;">
-        <section id="start-club">
-  <h2>No clubs nearby? Start your own!</h2>
-  <!-- Checklist and recommendations here -->
-  <form id="new-club-form">
-    <!-- Form fields for new club submission -->
-  </form>
-</section>
 
+    <section id="club-list">
+        <h2>List of Clubs</h2>
+        <div class="ticker-wrap">
+            <div class="ticker">
+                <div class="ticker-item">DON'T RUN ALONE</div>
+                <div class="ticker-item">DON'T RUN ALONE</div>
+                <div class="ticker-item">DON'T RUN ALONE</div>
+                <div class="ticker-item">DON'T RUN ALONE</div>
+                <div class="ticker-item">DON'T RUN ALONE</div>
+                <div class="ticker-item">DON'T RUN ALONE</div>
+                <div class="ticker-item">DON'T RUN ALONE</div>
+                <div class="ticker-item">DON'T RUN ALONE</div>
+                <div class="ticker-item">DON'T RUN ALONE</div>
+                <div class="ticker-item">DON'T RUN ALONE</div>
+                <div class="ticker-item">DON'T RUN ALONE</div>
+                <div class="ticker-item">DON'T RUN ALONE</div>
+            </div>
+        </div>
+
+        
+        <ul id="clubs">
+            <li id="sals-club">Sal's Club on Bloor and Spadina, Toronto</li>
+        </ul>
     </section>
 
+
+    <footer class="site-footer">
+        <div class="footer-content">
+            <button id="recommend-club-btn">Recommend a Club</button>
+            <!-- You can add more content here like links, social media icons, or contact info -->
+        </div>
+    </footer>
+
+        
 
 <!-- Recommend a Club Modal -->
 <div id="recommend-club-modal" class="modal" style="display:none;">
@@ -142,51 +200,23 @@
 </div>
 
 
-    <section id="club-list">
-        <h2>Latest Clubs</h2>
-        <ul id="clubs">
-            <li id="sals-club">Sal's Club on Bloor and Spadina, Toronto</li>
-        </ul>
-    </section>
-
-
-    <footer class="site-footer">
-        <div class="footer-content">
-            <button id="recommend-club-btn">Recommend a Club</button>
-            <!-- You can add more content here like links, social media icons, or contact info -->
-        </div>
-    </footer>
-    
-
-    <!-- Club Info Modal -->
-    <div id="club-info-modal" class="modal">
-        <div class="modal-content">
-            <span class="close-button">&times;</span>
-            <h2 id="modal-club-name">Club Name</h2>
-            <div id="modal-club-days">Running Days:</div>
-            <p id="modal-club-type">Run Type: <span></span></p>
-            <p id="modal-club-affiliation">Affiliation: <span></span></p>
-            <a id="modal-club-social" href="#">Social Link</a>
-            <!-- Placeholder for the schedule table -->
-            <div class="table-responsive">
-                <table id="modal-schedule-table">
-                                    <thead>
-                    <tr>
-                        <th>Day</th>
-                        <th>Time</th>
-                        <th>Distance</th>
-                        <th>Duration</th>
-                        <th>Pace</th>
-                        <th>Intention</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Dynamic rows will be inserted here -->
-                </tbody>
-            </table>
-            </div>
+<!-- Club Info Modal with Accordion for Schedule -->
+<div id="club-info-modal" class="modal">
+    <div class="modal-content">
+        <span class="close-button">&times;</span>
+        <h2 id="modal-club-name">Club Name</h2>
+        <div id="modal-club-days">Running Days:</div>
+        <p id="modal-club-type">Run Type: <span></span></p>
+        <p id="modal-club-affiliation">Affiliation: <span></span></p>
+        <a id="modal-club-social" href="#">Social Link</a>
+        
+        <!-- Accordion for Schedule -->
+        <div id="schedule-accordion" class="accordion">
+            <!-- Dynamic Accordion Items Will Be Inserted Here -->
         </div>
     </div>
+</div>
+
     
     <!-- Fallback Location Modal -->
 <div id="location-fallback-modal" class="modal" style="display:none;">
@@ -200,7 +230,7 @@
 </div>
 
 
-<script src="js/leafletFullScreen.js"></script>
+    <script src="js/leafletFullScreen.js"></script>
 
     <script src="js/app.js"></script>
 
