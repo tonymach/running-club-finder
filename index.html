@@ -13,6 +13,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.fullscreen/3.0.1/Control.FullScreen.min.js" integrity="sha512-h/AgOL3/GaN95r67NWhssa2HgUk/+zfZsSkS/TU/rj0RPdQv9BMVq7BSKuUew5R68pDSFbOWydkIex28J7gy9g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
 
 </head>
 <body>
@@ -23,7 +25,6 @@
     <img src="images/cntower.png" alt="Running Club Logo" class="logo">
 
     <h1>Find Your Running Club</h1>
-
 
     <div class="ticker-wrap">
         <div class="ticker">
@@ -42,19 +43,8 @@
         </div>
     </div>
 
-    
-
-
     <section class="explanation-section">
-        <h2>How It Works</h2>
-        <p>Welcome to the Running Club Finder! Here’s how you can find a running club near you:</p>
-        <ol>
-            <li>Select your province or region from the dropdown.</li>
-            <li>Browse through the list of available running clubs in your area.</li>
-            <li>Click on a club to see more details, including running days, times, and the club’s social links.</li>
-            <li>If you can’t find your city or a club near you, you can recommend a new club or start one yourself!</li>
-        </ol>
-        
+        <h1>Choose a day, find something close, and just show up!</h1>
     </section>
 </div>
 
@@ -141,7 +131,7 @@
     
         </div>
 
-        <div id="apply-btn-container" style="text-align: ;">
+        <div id="apply-btn-container">
         <button id="apply-filters" style="display: none;" onclick="applyFilters()">Apply Filters</button>
             </div>
     </section>
@@ -150,7 +140,7 @@
 
 
     <section id="club-list">
-        <h2>List of Clubs</h2>
+        
         <div class="ticker-wrap">
             <div class="ticker">
                 <div class="ticker-item">DON'T RUN ALONE</div>
@@ -164,14 +154,38 @@
                 <div class="ticker-item">DON'T RUN ALONE</div>
                 <div class="ticker-item">DON'T RUN ALONE</div>
                 <div class="ticker-item">DON'T RUN ALONE</div>
-                <div class="ticker-item">DON'T RUN ALONE</div>
             </div>
         </div>
+        <h2>Running groups that match your needs</h2>
+        <h6 class="subtitle">Connect with local running communities ready to welcome new members.</h6>
 
         
         <ul id="clubs">
-            <li id="sals-club">Sal's Club on Bloor and Spadina, Toronto</li>
+            <li id="sals-club"><span><b> Sal's Club</b> on <b>Bloor and Spadina, Toronto</b></span></li>
+            <li id="sals-club">
+                <span><b> Sal's Club</b> on <b>Bloor and Spadina, Toronto</b></span>
+                <div class="badges">
+                    <span class="badge beginner-friendly">Beginner Friendly</span>
+                    <span class="badge nearby">Nearby</span>
+                    <span class="badge small-group">Small Group</span>
+                </div>
+            </li>
+            <li id="sals-club"><span>Sal's Club on Bloor and Spadina, Toronto</span></li>
+            <li id="sals-club"><span>Sal's Club on Bloor and Spadina, Toronto</span></li>
+            <li id="sals-club"><span>Sal's Club on Bloor and Spadina, Toronto</span></li>
+            <li id="sals-club"><span>Sal's Club on Bloor and Spadina, Toronto</span></li>
+            <li id="sals-club"><span>Sal's Club on Bloor and Spadina, Toronto</span></li>
+            <li id="sals-club"><span>Sal's Club on Bloor and Spadina, Toronto</span></li>
+            <li id="sals-club"><span>Sal's Club on Bloor and Spadina, Toronto</span></li>
+            <li id="sals-club"><span>Sal's Club on Bloor and Spadina, Toronto</span></li>
+            <li id="sals-club"><span>Sal's Club on Bloor and Spadina, Toronto</span></li>
+            <li id="sals-club"><span>Sal's Club on Bloor and Spadina, Toronto</span></li>
+            <li id="sals-club"><span>Sal's Club on Bloor and Spadina, Toronto</span></li>
+            <li id="sals-club"><span>Sal's Club on Bloor and Spadina, Toronto</span></li>
+            <li id="sals-club"><span>Sal's Club on Bloor and Spadina, Toronto</span></li>
+
         </ul>
+        
     </section>
 
 
@@ -204,23 +218,32 @@
 <div id="club-info-modal" class="modal">
     <div class="modal-content">
         <span class="close-button">&times;</span>
-        <h2 id="modal-club-name">Club Name</h2>
-        <div id="modal-club-days">Running Days:</div>
+        
+        <div class="modal-header">
+            <h2 id="modal-club-name">Club Name</h2>
+            <!-- Button Group Next to Club Name -->
+            <div class="button-group">
+                <button id="add-to-calendar-top" class="btn"><i class="fas fa-calendar-plus"></i> Add to Calendar</button>
+                <button id="print-schedule-top" class="btn"><i class="fas fa-print"></i> Print Schedule</button>
+                
+            </div>
+        </div>
+        
         <p id="modal-club-type">Run Type: <span></span></p>
         <p id="modal-club-affiliation">Affiliation: <span></span></p>
         <a id="modal-club-social" href="#">Social Link</a>
-        <!-- Add to Calendar Button -->
-        <button id="add-to-calendar" class="btn">Add to Calendar</button>
-
-        <!-- Print Schedule Button -->
-        <button id="print-schedule" class="btn">Print Schedule</button>
 
         <!-- Accordion for Schedule -->
-        <div id="schedule-accordion" class="accordion">
-            <!-- Dynamic Accordion Items Will Be Inserted Here -->
+        <div id="schedule-accordion" class="accordion"></div>
+        
+        <!-- Button Group at Footer -->
+        <div class="modal-footer">
+            <button id="add-to-calendar-bottom" class="btn">Add to Calendar</button>
+            <button id="print-schedule-bottom" class="btn">Print Schedule</button>
         </div>
     </div>
 </div>
+
 
     
     <!-- Fallback Location Modal -->
@@ -240,6 +263,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.34/moment-timezone-with-data.min.js"></script>
     
     <script src="js/app.js"></script>
+    <script src="js/socialSharingButtons.js"></script>
 
 </body>
 

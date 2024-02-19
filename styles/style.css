@@ -1,4 +1,214 @@
+#clubs {
+    list-style-type: none; /* Removes default list bullets */
+    padding: 0;
+    margin: 0;
+}
 
+.club-info {
+    flex-grow: 1; /* Allows the club name to take up available space, pushing badges to the right */
+}
+
+.badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px; /* Space between badges */
+    white-space: nowrap; /* Ensures text within badges doesn't wrap */
+
+}
+
+.subtitle {
+    font-size: 16px; /* Adjust size as needed */
+    color: #666; /* Subdued color for contrast */
+    margin-top: -10px; /* Closer to the title */
+    margin-bottom: 20px; /* Space before the list */
+    text-align: center; /* Center-align if fits the design */
+}
+
+
+.badge {
+    display: inline-block;
+    background-color: #4CAF50; /* Green background */
+    color: white; /* White text */
+    padding: 5px 10px; /* Padding inside badges */
+    border-radius: 15px; /* Rounded corners for badges */
+    font-size: 12px; /* Smaller font size for badge text */
+    text-transform: uppercase; /* UPPERCASE text for badges */
+    font-weight: bold; /* Bold font weight */
+}
+
+.badges {
+    display: flex;
+    flex-wrap: nowrap; /* Prevents badges from wrapping to a new line */
+    gap: 10px; /* Space between badges */
+}
+
+/* Custom colors for different badges */
+.badge.beginner-friendly {
+    background-color: #2196F3; /* Blue background for 'Beginner Friendly' */
+}
+
+.badge.nearby {
+    background-color: #FF9800; /* Orange background for 'Nearby' */
+}
+
+.badge.small-group {
+    background-color: #9C27B0; /* Purple background for 'Small Group' */
+}
+
+.badge.bag-drop {
+    background-color: #673AB7; /* Deep purple background for 'Bag Drop' */
+}
+
+.badge.large-group {
+    background-color: #E91E63; /* Pink background for 'Large Group' */
+}
+
+
+.running-days {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.day-badge {
+    background-color: #4CAF50;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 14px;
+}
+
+
+#club-list h2 {
+    display: block; /* Change to block to allow width manipulation */
+    background-color: #ffffff; /* Set background color to white */
+    padding: 20px 30px; /* Increase padding for a larger appearance */
+    border-radius: 20px; /* Increase border-radius for more pronounced rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: Adjusts the shadow for depth */
+    color: #3f72af; /* Keep the text color for contrast */
+    margin: 20px auto; /* Adjust margin to center the title */
+    font-size: 28px; /* Increase font size for larger text */
+    width: fit-content; /* Adjust width to fit its content */
+    max-width: 90%; /* Prevents the title from stretching too wide on larger screens */
+    text-align: center; /* Center-align the text */
+}
+
+
+#clubs li {
+    display: flex;
+    justify-content: space-between; /* Aligns children (club info and badges) on opposite ends */
+    align-items: center; /* Centers items vertically */
+    flex-wrap: wrap; /* Allows items to wrap if needed, adjust if you strictly want one line */
+    background-color: #f0f0f0; /* Light gray background */
+    margin: 5px 0; /* Space between items */
+    padding: 10px 15px; /* Padding inside each item */
+    border-radius: 5px; /* Rounded corners */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+    transition: background-color 0.3s, box-shadow 0.3s; /* Smooth transition for interaction */
+    cursor: pointer; /* Indicates an interactive element */
+    position: relative; /* Needed for absolute positioning of the icon */
+    color: #333; /* Darker text for better contrast */
+    border: 1px solid transparent; /* Ready for hover effect without shifting content */
+}
+
+#clubs li span {
+    display: inline-block;
+    margin-left: 20px; /* Space for the arrow */
+}
+
+#clubs li::before {
+    content: '\2190'; /* Unicode character for left arrow */
+    position: absolute;
+    left: 10px; /* Aligns arrow closer to the left edge */
+    top: 50%;
+    transform: translateY(-50%) rotate(180deg); /* Centers the arrow vertically */
+    color: #666; /* Color of the arrow */
+    font-weight: bold; /* Make the arrow appear thicker */
+    font-size: 18px; /* Adjust size as needed */
+    transition: transform 0.3s ease, box-shadow 0.3s ease, width 0.3s ease, height 0.3s ease; /* Smooth transition for hover effects */
+
+}
+
+
+#clubs li:hover, #clubs li:focus {
+    background-color: #e0e0e0; /* Slightly darker background on hover/focus */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Larger shadow on hover/focus */
+    border-color: #ccc; /* Subtle border color on hover to indicate interactivity */
+}
+
+#clubs li:active {
+    background-color: #d0d0d0; /* Even darker background to simulate a press */
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2); /* Smaller shadow to simulate being pressed */
+}
+
+@media (max-width: 768px) {
+    #clubs li {
+        flex-direction: column; /* Stack club info and badges vertically */
+        padding: 20px; /* Increase padding for a touch-friendly interface */
+        text-align: center; /* Center-align the content for a cohesive look */
+    }
+
+    #clubs li .club-info, #clubs li .badges {
+        width: 100%; /* Full width for both club info and badges container */
+        margin-bottom: 10px; /* Add some space between club info and badges */
+    }
+
+    #clubs li::before {
+        content: '\2192'; /* Change arrow direction to right */
+        order: -1; /* Make the arrow appear above the text */
+        position: static; /* Ensures the arrow flows in the normal document flow */
+        transform: rotate(0deg); /* Reset rotation for mobile */
+        margin-right: 0; /* Remove right margin on mobile */
+        margin-bottom: 10px; /* Add space below the arrow */
+        /* New Styles for Circle and Shadow */
+        display: inline-flex; /* Use inline-flex to keep the arrow aligned nicely with text */
+        align-items: center;
+        justify-content: center;
+        width: 24px; /* Circle size */
+        height: 24px; /* Circle size */
+        border-radius: 50%; /* Makes it a circle */
+        background-color: #fff; /* Circle background color */
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1); /* Soft shadow for "cuteness" */
+        font-size: 16px; /* Adjusted font size for better visibility */
+        line-height: 1; /* Adjust line height to vertically center the arrow in the circle */
+        color: #3f72af; /* Arrow color, can be adjusted */
+    }
+
+    #clubs li:hover::before {
+        transform: scale(1.2); /* Enlarge the arrow and circle */
+        box-shadow: 0 6px 8px rgba(0,0,0,0.2); /* Deeper shadow for a popping effect */
+        width: 28px; /* Slightly increase the circle size */
+        height: 28px; /* Slightly increase the circle size */
+    }
+    
+
+    #clubs li span {
+        margin-left: 0; /* Remove the left margin as arrow is now inline */
+    }
+
+    .badge {
+        font-size: 14px; /* Slightly larger font size for better readability */
+        padding: 8px 12px; /* Increase padding for a larger touch target */
+    }
+
+    #club-list h2 {
+        font-size: 24px; /* Adjust title font size for smaller screens */
+        padding: 15px 25px; /* Adjust padding to fit smaller screens */
+        width: auto; /* Allow the title background to fit content width */
+    }
+}
+
+
+
+.explanation-section h1 {
+    font-size: 28px; /* Increase as needed */
+}
+
+.explanation-section p {
+    font-size: 20px; /* Increase as needed */
+}
 
 .filter-group {
     transition: max-height 0.5s ease-out;
@@ -71,7 +281,7 @@ li {
 
 body {
     font-family: 'Poppins', sans-serif;
-    background: linear-gradient(to right, #f9f7f7, #dbe2ef); /* Gentle gradient */
+    background: linear-gradient(to bottom, #dbe2ef, #dbe2ef); /* Gentle gradient */
     color: #112d4e;
     padding: 20px;
     line-height: 1.6;
@@ -86,6 +296,15 @@ h1 {
 h2 {
     color: #3f72af;
     margin-bottom: 1rem;
+}
+
+
+#club-list h2 {
+    font-size: 24px;
+    color: #3f72af; /* Adjust to match your color scheme */
+    margin-bottom: 20px;
+    text-align: center; /* Centers the title for emphasis */
+    font-family: 'Poppins', sans-serif; /* Example font family */
 }
 
 /* Form and Input Styling */
@@ -112,6 +331,8 @@ h2 {
     resize: vertical;
 }
 
+
+
 #club-form button {
     background-color: #3f72af;
     color: #f9f7f7;
@@ -123,7 +344,7 @@ h2 {
     background-color: #112d4e;
 }
 
-/* Club List Styling */
+Club List Styling
 #club-list ul {
     list-style: none;
 }
@@ -250,6 +471,64 @@ input:focus, textarea:focus, button:focus {
     z-index: 1001; /* Ensure content is above the overlay */
 }
 
+.modal-header, .modal-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+/* Adjusting top button sizes for a more proportionate look */
+#add-to-calendar-top, #print-schedule-top {
+    padding: 10px 18px; /* Reduced padding */
+    font-size: 18px; /* Smaller font size for a subtler appearance */
+}
+
+/* Adjusting button colors for better action indication */
+#add-to-calendar-top, #add-to-calendar-bottom {
+    background-color: #3498db; /* Softer blue for 'Add to Calendar' */
+    color: #ffffff; /* Maintaining white text for contrast */
+}
+
+#print-schedule-top, #print-schedule-bottom {
+    background-color: #e67e22; /* Vibrant orange for 'Print Schedule' */
+    color: #ffffff; /* White text for clarity */
+}
+
+/* Enhancing hover effects with color transitions */
+#add-to-calendar-top:hover, #add-to-calendar-bottom:hover {
+    background-color: #2980b9; /* Darker shade of blue on hover */
+}
+
+#print-schedule-top:hover, #print-schedule-bottom:hover {
+    background-color: #d35400; /* Darker shade of orange on hover */
+}
+
+/* Maintaining the rest of the styles for consistency */
+.btn {
+    cursor: pointer;
+    border-radius: 8px;
+    margin: 5px 0;
+    font-weight: bold;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), inset 0 1px 2px rgba(255, 255, 255, 0.2);
+    border: none;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+@media (max-width: 768px) {
+    /* Slightly larger buttons for mobile for better touch targets */
+    #add-to-calendar-top, #add-to-calendar-bottom,
+    #print-schedule-top, #print-schedule-bottom {
+        padding: 12px 20px;
+        font-size: 16px;
+    }
+}
+
+
 /* Add this media query below your existing CSS */
 @media (max-width: 768px) {
     .modal-content {
@@ -331,6 +610,7 @@ input:focus, textarea:focus, button:focus {
     background-color: #4CAF50;
     color: white;
 }
+
 #running-timeline {
     position: relative;
     margin: 20px 0;
@@ -675,32 +955,65 @@ input[type="checkbox"]:checked + .toggle-label .toggle-ball {
     transform: translateY(1px); /* Slightly depress the button when clicked */
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Revert to smaller shadow when clicked */
 }
-
-.accordion-button {
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
+.accordion-item {
+    background-color: #f9f7f7;
+    color: #444;
+    margin-bottom: 5px;
     border-radius: 5px;
-    padding: 10px;
-    width: 100%;
-    text-align: left;
-    cursor: pointer;
-}
-
-.accordion-button:focus {
-    outline: none;
-}
-
-.accordion-collapse {
-    transition: max-height 0.2s ease-out;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
     overflow: hidden;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-top: none;
 }
 
-.accordion-button:not(.collapsed) {
-    background-color: #e9ecef;
-    color: #495057;
+.accordion-header {
+    background-color: #3f72af;
+    color: white;
+    cursor: pointer;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'Poppins', sans-serif;
+    transition: background-color 0.3s ease;
+}
+
+.accordion-header:hover {
+    background-color: #314e6e;
+}
+
+.accordion-header.active {
+    background-color: #2c3e50;
+}
+
+.accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease-out;
+    padding: 0 15px; /* Add padding for visual consistency */
+}
+
+
+.accordion-content p {
+    padding: 10px;
+    margin: 0;
+    border-bottom: 1px solid #eee;
+}
+
+.arrow {
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    display: inline-block;
+    padding: 3px;
+    transition: transform 0.3s ease;
+}
+
+.down {
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+}
+
+.up {
+    transform: rotate(-135deg);
+    -webkit-transform: rotate(-135deg);
 }
 
 

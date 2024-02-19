@@ -426,56 +426,104 @@ document.addEventListener('DOMContentLoaded', () => {
             collapseElement.classList.add('show');
         }
     }
-    
 
-    function openModalWithClubInfo(club) {
-        // Basic club info adjustments
-        document.getElementById('modal-club-name').innerText = club.name;
-        document.getElementById('modal-club-affiliation').innerText = club.affiliation === 'Professional' ? `Affiliation: Professional - ${club.businessName}` : 'Affiliation: Community';
-        document.getElementById('modal-club-social').href = club.social || '#';
-        document.getElementById('modal-club-social').innerText = club.social ? 'Visit Social Link' : '';
-        document.getElementById('club-info-modal').style.display = 'block';
+
+    function openModalWithClubInfo(details) {
+        // Display the modal
+        const modal = document.getElementById('club-info-modal');
+        modal.style.display = "block";
     
-        // Accordion for the Schedule - ensuring initial closure
+        // Populate basic info
+        document.getElementById('modal-club-name').textContent = details.name;
+        document.getElementById('modal-club-type').querySelector('span').textContent = details.runType;
+        document.getElementById('modal-club-affiliation').querySelector('span').textContent = details.businessName;
+        document.getElementById('modal-club-social').href = details.social;
+        document.getElementById('modal-club-social').textContent = "Visit Social Link";
+    
+        const existingBadges = modal.getElementsByClassName('badges')[0];
+        if (existingBadges) {
+            existingBadges.remove();
+        }
+
+        // Add badges
+        const badgesContainer = document.createElement('div');
+        badgesContainer.className = 'badges';
+        if (details.beginnerFriendly) {
+            badgesContainer.appendChild(createBadge('Beginner Friendly', 'beginner-friendly'));
+        }
+        if (details.groupSize === '11-20') {
+            badgesContainer.appendChild(createBadge('Small Group', 'small-group'));
+        }
+        if (details.bagDrop) {
+            badgesContainer.appendChild(createBadge('Bag Drop', 'bag-drop'));
+        }
+    
+        // Insert badges above the Club Social
+        const runningDaysSection = document.getElementById('modal-club-social');
+        modal.getElementsByClassName('modal-content')[0].insertBefore(badgesContainer, runningDaysSection);
+    
+    
+        // Populate Schedule Accordion
         const scheduleAccordion = document.getElementById('schedule-accordion');
-        scheduleAccordion.innerHTML = ''; // Clear existing accordion items
-        club.schedule.forEach((session, index) => {
-            const accordionItem = document.createElement('div');
-            accordionItem.className = 'accordion-item';
-            accordionItem.innerHTML = `
-                <div class="accordion-header" id="heading${index}">
-                    <h5 class="mb-0">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse${index}" aria-expanded="false" aria-controls="collapse${index}">
-                            ${session.day}
-                        </button>
-                    </h5>
-                </div>
-                <div id="collapse${index}" class="accordion-collapse collapse" aria-labelledby="heading${index}">
-                    <div class="accordion-body">
-                        ${Object.keys(session).filter(key => session[key] !== undefined && key !== 'day').map(key => `<p>${key.charAt(0).toUpperCase() + key.slice(1)}: ${session[key]}</p>`).join('')}
-                    </div>
-                </div>
-            `;
-            scheduleAccordion.appendChild(accordionItem);
+        scheduleAccordion.innerHTML = ''; // Clear previous entries
+        details.schedule.forEach(session => {
+            scheduleAccordion.appendChild(createScheduleItem(session));
         });
     
-        // Manual accordion toggle functionality
-        scheduleAccordion.querySelectorAll('.accordion-button').forEach(button => {
-            button.addEventListener('click', function() {
-                // Toggle the "collapse" state of the target accordion item
-                const collapseElementId = this.getAttribute('data-bs-target');
-                const collapseElement = document.querySelector(collapseElementId);
-                collapseElement.classList.toggle('show');
-                
-                // Optionally, close other open items
-                document.querySelectorAll('.accordion-collapse').forEach(el => {
-                    if (el.id !== collapseElementId.substring(1)) { // Exclude the "#" in the id
-                        el.classList.remove('show');
-                    }
-                });
-            });
-        });
+        // Close button functionality
+        document.querySelector('.close-button').onclick = function() {
+            modal.style.display = "none";
+        };
+    
+        // Clicking outside of the modal closes it
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        };
     }
+    
+    function createBadge(text, className) {
+        const badge = document.createElement('span');
+        badge.className = `badge ${className}`;
+        badge.textContent = text;
+        return badge;
+    }
+    
+    function createScheduleItem(session) {
+        const item = document.createElement('div');
+        item.className = 'accordion-item';
+        item.innerHTML = `
+            <div class="accordion-header">${session.day} - ${session.time} <i class="arrow down"></i></div>
+            <div class="accordion-content">
+                <p>Distance: ${session.distance}</p>
+                <p>Duration: ${session.duration}</p>
+                <p>Pace: ${session.pace}</p>
+                <p>Intention: ${session.intention}</p>
+            </div>
+        `;
+    
+        // Event listener for the accordion header
+        const header = item.querySelector('.accordion-header');
+        const content = item.querySelector('.accordion-content');
+        header.addEventListener('click', function() {
+            const arrow = this.querySelector('.arrow');
+            if (content.style.maxHeight) {
+                content.style.maxHeight = null;
+                arrow.classList.replace('up', 'down');
+            } else {
+                content.style.maxHeight = content.scrollHeight + "px";
+                arrow.classList.replace('down', 'up');
+            }
+        });
+    
+        return item;
+    }
+    
+    
+    
+    
+    
     
     // Event listener setup remains unchanged
     document.getElementById('sals-club').addEventListener('click', () => {
@@ -486,12 +534,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const salsClubDetails = {
         name: "Sal's Club",
         // Assume days aggregation to be handled separately
-        affiliation: "Professional",
+        runType: "Professional",
         businessName: "Sal's Running Supplies", // New attribute for professional affiliation
         social: "https://example.com/salsclub",
-        timeOfDay: "Evening",
-        groupSize: "11-20",
+        groupSize: "11-20", //This is small
         beginnerFriendly: true,
+        bagDrop: true,
+        location: {lat: 0.11, lon: 0.11}, //Example that needs to be changed to something real near me for the demo
         schedule: [
             { day: "Monday", time: "6:00 PM", distance: "5 km", duration: "30 mins", pace: "Casual", intention: "Fun" },
             { day: "Wednesday", time: "6:00 PM", distance: "8 km", duration: "45 mins", pace: "Moderate", intention: "Training" },
@@ -586,8 +635,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     
     
-    
-  
+
     document.getElementById('add-to-calendar').addEventListener('click', () => downloadICS(salsClubDetails));
     document.getElementById('print-schedule').addEventListener('click', () => printSchedule(salsClubDetails));
 
