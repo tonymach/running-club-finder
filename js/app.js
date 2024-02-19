@@ -427,18 +427,56 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    function createSocialLink(id, href, iconClass, text) {
+        const link = document.createElement('a');
+        link.id = id;
+        link.href = href;
+        link.target = "_blank";
+        link.className = "social-link"; // Ensure this class is styled appropriately in your CSS
+        link.innerHTML = `<i class="${iconClass}"></i> ${text}`;
+        return link;
+    }
+    
+        function createContactInfo(id, iconClass, content) {
+            const container = document.createElement('p');
+            container.innerHTML = `<i class="${iconClass}"></i> <span id="${id}">${content}</span>`;
+            return container;
+        }
+    
 
+    
     function openModalWithClubInfo(details) {
         // Display the modal
         const modal = document.getElementById('club-info-modal');
         modal.style.display = "block";
+        // Reference to containers
+        const socialLinksContainer = document.querySelector('.modal-socials .social-links');
+        const contactInfoContainer = document.querySelector('.modal-socials .contact-info');
     
+        // Clear previous content
+        socialLinksContainer.innerHTML = '';
+        contactInfoContainer.innerHTML = '';
+    
+        // Populate social media links if they exist
+        details.socials.forEach(social => {
+            if (social.instagram) {
+                document.querySelector('.modal-socials .social-links').appendChild(createSocialLink('instagram-link', social.instagram, 'fab fa-instagram', 'Instagram'));
+            } else if (social.twitter) {
+                document.querySelector('.modal-socials .social-links').appendChild(createSocialLink('twitter-link', social.twitter, 'fab fa-twitter', 'Twitter'));
+            } else if (social.website) {
+                document.querySelector('.modal-socials .social-links').appendChild(createSocialLink('website-link', social.website, 'fas fa-globe', 'Website'));
+            } else if (social.phone) {
+                document.querySelector('.modal-socials .contact-info').appendChild(createContactInfo('phone-number', 'fas fa-phone-alt', social.phone));
+            } else if (social.email) {
+                document.querySelector('.modal-socials .contact-info').appendChild(createContactInfo('email-address', 'fas fa-envelope', social.email));
+            }
+        });
+
         // Populate basic info
         document.getElementById('modal-club-name').textContent = details.name;
         document.getElementById('modal-club-type').querySelector('span').textContent = details.runType;
         document.getElementById('modal-club-affiliation').querySelector('span').textContent = details.businessName;
-        document.getElementById('modal-club-social').href = details.social;
-        document.getElementById('modal-club-social').textContent = "Visit Social Link";
+
     
         const existingBadges = modal.getElementsByClassName('badges')[0];
         if (existingBadges) {
@@ -459,7 +497,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     
         // Insert badges above the Club Social
-        const runningDaysSection = document.getElementById('modal-club-social');
+        const runningDaysSection = document.getElementById('modal-socials');
         modal.getElementsByClassName('modal-content')[0].insertBefore(badgesContainer, runningDaysSection);
     
     
@@ -541,6 +579,15 @@ document.addEventListener('DOMContentLoaded', () => {
         beginnerFriendly: true,
         bagDrop: true,
         location: {lat: 0.11, lon: 0.11}, //Example that needs to be changed to something real near me for the demo
+        socials: [
+            {preferred: "instagram" },
+            {instagram: "https://www.instagram.com/antonymachula/"},
+            {twitter: "https://twitter.com/salsclub/" },
+            {website: "https://www.salsclub.com"},
+            {phone: "+1234567890"},
+            {email: "info@salsclub.com"}
+
+        ],
         schedule: [
             { day: "Monday", time: "6:00 PM", distance: "5 km", duration: "30 mins", pace: "Casual", intention: "Fun" },
             { day: "Wednesday", time: "6:00 PM", distance: "8 km", duration: "45 mins", pace: "Moderate", intention: "Training" },
