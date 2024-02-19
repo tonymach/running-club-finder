@@ -427,15 +427,22 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    function createSocialLink(id, href, iconClass, text) {
+    function createSocialLink(id, href, iconClassOrImageUrl, text, isImage = false) {
         const link = document.createElement('a');
         link.id = id;
         link.href = href;
         link.target = "_blank";
         link.className = "social-link"; // Ensure this class is styled appropriately in your CSS
-        link.innerHTML = `<i class="${iconClass}"></i> ${text}`;
+        if (isImage) {
+            // If the link is for the X logo, use an <img> tag instead of an <i> tag
+            link.innerHTML = `<img src="${iconClassOrImageUrl}" alt="${text}" style="height: 14px; width: 14px;">`;
+        } else {
+            // For other social links, continue using the <i> tag with Font Awesome classes
+            link.innerHTML = `<i class="${iconClassOrImageUrl}"></i>`;
+        }
         return link;
     }
+    
     
         function createContactInfo(id, iconClass, content) {
             const container = document.createElement('p');
@@ -460,11 +467,12 @@ document.addEventListener('DOMContentLoaded', () => {
         // Populate social media links if they exist
         details.socials.forEach(social => {
             if (social.instagram) {
-                document.querySelector('.modal-socials .social-links').appendChild(createSocialLink('instagram-link', social.instagram, 'fab fa-instagram', 'Instagram'));
+                socialLinksContainer.appendChild(createSocialLink('instagram-link', social.instagram, 'fab fa-instagram', 'Instagram'));
             } else if (social.twitter) {
-                document.querySelector('.modal-socials .social-links').appendChild(createSocialLink('twitter-link', social.twitter, 'fab fa-twitter', 'Twitter'));
+                // Use the provided logo URL for X (formerly Twitter) and set isImage to true
+                socialLinksContainer.appendChild(createSocialLink('twitter-link', social.twitter, 'https://cdn.cms-twdigitalassets.com/content/dam/about-twitter/x/brand-toolkit/logo-black.png.twimg.768.png', 'X', true));
             } else if (social.website) {
-                document.querySelector('.modal-socials .social-links').appendChild(createSocialLink('website-link', social.website, 'fas fa-globe', 'Website'));
+                socialLinksContainer.appendChild(createSocialLink('website-link', social.website, 'fas fa-globe', 'Site'));
             } else if (social.phone) {
                 document.querySelector('.modal-socials .contact-info').appendChild(createContactInfo('phone-number', 'fas fa-phone-alt', social.phone));
             } else if (social.email) {

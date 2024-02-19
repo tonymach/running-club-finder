@@ -8,14 +8,6 @@
     flex-grow: 1; /* Allows the club name to take up available space, pushing badges to the right */
 }
 
-.badges {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px; /* Space between badges */
-    white-space: nowrap; /* Ensures text within badges doesn't wrap */
-
-}
-
 .subtitle {
     font-size: 16px; /* Adjust size as needed */
     color: #666; /* Subdued color for contrast */
@@ -24,6 +16,14 @@
     text-align: center; /* Center-align if fits the design */
 }
 
+.badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px; /* Space between badges */
+    white-space: nowrap; /* Ensures text within badges doesn't wrap */
+    justify-content: center; /* Centers badges */
+    margin: auto; /* Helps in centering if needed */
+}
 
 .badge {
     display: inline-block;
@@ -37,25 +37,20 @@
     flex-shrink: 0; /* Prevents badges from shrinking */
 }
 
-.badges {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px; /* Space between badges */
-    white-space: nowrap; /* Prevents text within badges from wrapping */
-}
-
 @media (max-width: 768px) {
     .badge {
-        font-size: 10px; /* Even smaller font size for mobile */
-        padding: 3px 8px; /* Reduced padding to save space */
+        font-size: 8px; /* Even smaller font size for mobile */
+        padding: 1px 3px; /* Reduced padding to save space */
         border-radius: 10px; /* Slightly less rounded corners for a more compact look */
     }
 
-    /* Ensures badges container allows wrapping on narrow screens */
+    /* Adjustments for badges container on mobile */
     .badges {
         flex-wrap: wrap;
+        justify-content: center; /* Ensures center alignment on mobile */
     }
 }
+
 
 /* Custom colors for different badges */
 .badge.beginner-friendly {
@@ -486,11 +481,21 @@ input:focus, textarea:focus, button:focus {
     z-index: 1001; /* Ensure content is above the overlay */
 }
 
-.modal-header, .modal-footer {
+.modal-header {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    flex-direction: column;
+    align-items: center; /* Ensures that all items in the header are centered */
+    text-align: center; /* Centers the text for h2 and p elements */
 }
+
+.modal-footer {
+    display: flex;
+    flex-direction: row; /* Aligns children horizontally */
+    justify-content: space-between; /* Places one child at each end */
+    width: 100%; /* Ensures the footer spans the full width of its container */
+    padding: 10px; /* Optional: adds some padding inside the footer */
+}
+
 
 .modal-socials {
     padding: 20px;
@@ -506,68 +511,110 @@ input:focus, textarea:focus, button:focus {
     margin-bottom: 20px; /* Increased space between social links and contact info for better separation */
 }
 
-.modal-socials h3 {
-    margin-bottom: 20px; /* Increased space between the title and the links */
-    color: #333;
-    font-weight: bold; /* Bold for emphasis */
-    font-size: 20px; /* Slightly larger for importance */
-    border-bottom: 2px solid #eaeaea; /* Subtle line for visual separation */
-    padding-bottom: 10px; /* Space between the title and its underline */
-}
-
-.social-links a, .contact-info p {
-    display: flex;
-    align-items: center;
-    gap: 12px; /* Increased gap for clarity */
-    margin-bottom: 12px; /* Increased space for better distinction */
-    text-decoration: none;
-    color: #3f72af; /* Theme color */
-    font-weight: 500; /* Balance between readability and design */
-}
-
-.social-links a:hover, .contact-info p:hover {
-    text-decoration: underline; /* Interaction feedback */
-    color: #2c598a; /* Consistent theme hover color */
-}
-
-.contact-info i {
-    color: #3498db; /* Icon color for consistency */
-}
-
-.social-link {
-    padding: 8px 15px; /* Slightly more padding for emphasis */
-    background-color: #eef2f7; /* Softer background for focus */
-    border: 1px solid #d6dee5; /* Border for depth */
-    transition: background-color 0.3s, box-shadow 0.3s, border-color 0.3s; /* Smooth transitions */
-}
-
-.social-link i {
-    margin-right: 8px; /* Consistent spacing */
-}
-
-.contact-info p {
-    font-size: 16px; /* Readability */
-}
-
-/* Adjust for smaller screens */
 @media (max-width: 768px) {
-    .social-links a, .contact-info p {
+    .modal-header {
+        display: flex;
         flex-direction: column;
-        align-items: start;
-        gap: 6px;
+        align-items: center; /* Centers the content on mobile */
+    }
+
+    .button-group {
+        width: 100%; /* Allows buttons to fill the container */
+        justify-content: center; /* Center-align buttons for consistency */
+        flex-wrap: wrap; /* Allows buttons to wrap if needed */
+    }
+
+    .button-group .btn {
+        margin: 5px; /* Adds spacing around buttons */
+        flex-grow: 1; /* Allows buttons to grow and fill the space */
+    }
+
+    #modal-club-type, #modal-club-affiliation {
+        text-align: center; /* Centers text for a cleaner look */
+    }
+    
+    .close-button {
+        top: 5px; /* Adjusts position to not overlap */
+        right: 5px;
+        font-size: 20px; /* Adjust size for better touch */
+    }
+}
+
+.modal-socials h3 {
+    margin-bottom: 10px; /* Increased space from the title to the social links */
+}
+
+.modal-socials .social-links {
+    justify-content: center; /* Centers the social links */
+    display: inline-block; /* Adjust display for alignment */
+    vertical-align: top; /* Align at the top with the preferred contact method section */
+    width: 60%; /* Allocate width to give more space around icons */
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); box-shadow: 0 0 15px rgba(0, 0, 0, 0.4); }
+    50% { transform: scale(1.05); box-shadow: 0 0 25px rgba(0, 0, 0, 0.6); }
+    100% { transform: scale(1); box-shadow: 0 0 15px rgba(0, 0, 0, 0.4); }
+}
+
+.preferred-highlight {
+    animation: pulse 2s infinite;
+    background-color: #f0f0f0; /* Light background for emphasis */
+    border-radius: 50%; /* Circular highlight */
+    display: inline-block;
+    padding: 5px; /* Adjust based on your design */
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.4); /* More pronounced shadow for visibility */
+}
+
+/* Social Links Container */
+
+.modal-socials .social-links a {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #ffffff; /* White background */
+    color: #000000; /* Black icons */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); /* More pronounced shadow for depth */
+    margin: 0 15px 15px 0; /* Increase space around icons */
+    text-decoration: none;
+    transition: transform 0.2s ease, box-shadow 0.2s ease; /* Smooth transitions for hover effects */
+}
+
+/* Hover Effect for Social Links */
+.modal-socials .social-links a:hover {
+    transform: translateY(-3px); /* Slight lift */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5); /* Enhanced shadow for lift effect */
+}
+
+.modal-socials .social-links {
+    justify-content: center; /* Centers the social links */
+    flex-wrap: wrap; /* Allows items to wrap in smaller spaces */
+    display: flex; /* Changes display to flex to use justify-content */
+    margin: auto; /* Centers the container itself */
+}
+
+.modal-content {
+    text-align: center; /* Ensures text and inline-block elements are centered */
+}
+
+/* Adjustments for smaller screens */
+@media (max-width: 768px) {
+    .modal-socials {
+        padding: 20px; /* Adjusts padding for smaller screens */
+    }
+
+    .modal-socials .social-links, .modal-socials .contact-info {
+        display: block; /* Stacks links and contact info vertically */
     }
 
     .social-link, .contact-info p {
-        padding: 10px; /* Accessible touch targets */
-    }
-
-    .modal-socials {
-        padding: 15px; /* Adjusted padding for screen size */
-        margin-top: 15px; /* Consistent spacing */
-        margin-bottom: 15px; /* Before accordion */
+        margin: 10px auto; /* Centers links and info paragraphs and provides spacing */
+        display: block; /* Ensures each item takes its own line */
     }
 }
-
 
 
 
@@ -965,6 +1012,7 @@ input[type="checkbox"]:checked + .toggle-label .toggle-ball {
     border-radius: 8px; /* Rounded corners */
 
 }
+
 
 .footer-content {
     max-width: 1200px; /* Max width for the footer content */
