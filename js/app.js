@@ -691,7 +691,9 @@ document.addEventListener('DOMContentLoaded', () => {
     
     
 
-    document.getElementById('add-to-calendar').addEventListener('click', () => downloadICS(salsClubDetails));
-    document.getElementById('print-schedule').addEventListener('click', () => printSchedule(salsClubDetails));
-
+    document.getElementById('add-to-calendar-top').addEventListener('click', () => downloadICS(salsClubDetails));
+    document.getElementById('add-to-calendar-bottom').addEventListener('click', () => downloadICS(salsClubDetails));
+    
+    document.getElementById('print-schedule-bottom').addEventListener('click', () => printSchedule(salsClubDetails));
+    
 });
