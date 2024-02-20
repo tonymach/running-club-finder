@@ -1,0 +1,293 @@
+
+.find-group-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px; /* Adjust the gap between buttons as needed */
+}
+
+
+.find-group-btn, .summary-line {
+    cursor: pointer;
+    padding: 15px 25px; /* Slightly larger for desktop visibility */
+    font-size: 22px; /* Larger font size for clear readability */
+    background-color: #3f72af; /* Color aligned with your primary theme */
+    color: #ffffff; /* White text for contrast */
+    border-radius: 8px; /* Rounded corners for a modern look */
+    margin: 5px 0px; /* Adjusted margin for vertical spacing */
+    font-weight: bold; /* Bold font for emphasis */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), inset 0 2px 4px rgba(255, 255, 255, 0.2); /* Outer and inner shadow for depth */
+    border: none; /* Remove the border */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for interaction */
+}
+
+.find-group-btn:hover, .summary-line:hover {
+    transform: translateY(-2px); /* Lift effect on hover */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), inset 0 2px 4px rgba(255, 255, 255, 0.2); /* Enhanced shadow on hover */
+}
+
+/* Adjusting for mobile devices to ensure buttons stack vertically */
+@media (max-width: 768px) {
+    .find-group-container {
+        flex-direction: column; /* Stack the buttons vertically */
+        gap: 10px;
+    }
+
+    .find-group-btn, .summary-line {
+        padding: 12px 20px; /* Adjust padding for mobile */
+        font-size: 18px; /* Adjust font size for mobile */
+        width: auto; /* Auto width to fit content */
+        margin: 10px 0; /* Ensure there's space between buttons when stacked */
+    }
+}
+
+
+/* Adjustments for the clear days button to match the theme */
+.clear-type-btn,
+.clear-days-btn,
+.clear-time-btn,
+.clear-group-size-btn {
+    background-color: #f2f2f2; /* Light grey background */
+    border: 1px solid #ccc; /* Light grey border */
+    border-radius: 5px; /* Rounded corners */
+    padding: 10px 15px; /* Increased padding for better clickability */
+    margin-top: 10px; /* Space above the button */
+    cursor: pointer; /* Hand cursor on hover */
+    color: #333; /* Darker text for better readability */
+    font-weight: bold; /* Makes text bold */
+    text-transform: uppercase; /* Uppercase text for emphasis */
+    letter-spacing: 1px; /* More space between letters */
+    transition: background-color 0.3s, box-shadow 0.3s, transform 0.3s; /* Smooth transition for hover effects */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+}
+.clear-type-btn:hover,
+.clear-days-btn:hover,
+.clear-time-btn:hover,
+.clear-group-size-btn:hover {
+    background-color: #d6d6d6; /* Slightly darker shade on hover */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Larger shadow on hover for a "lifting" effect */
+    transform: translateY(-2px); /* Slightly raise the button */
+}
+
+.clear-type-btn:hover,
+.clear-time-btn:active,
+.clear-group-size-btn:active
+.clear-days-btn:active {
+    transform: translateY(1px); /* Slightly depress the button when clicked */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Revert to smaller shadow when clicked */
+}
+
+/* General button styling */
+.day-btn, .time-btn, .type-btn, .group-size-btn, #apply-filters, .clear-days-btn {
+    background-color: #fff; /* White background */
+    color: #112d4e; /* Dark blue text for contrast */
+    border: 2px solid #dbe2ef; /* Thicker border for definition */
+    border-radius: 5px; /* Rounded corners */
+    padding: 10px; /* Adequate padding */
+    margin: 5px; /* Margin for spacing */
+    cursor: pointer; /* Indicates clickable */
+    transition: background-color 0.3s, border-color 0.3s, color 0.3s, font-weight 0.3s; /* Smooth transitions for interaction */
+}
+
+.day-btn:hover, .time-btn:hover, .type-btn:hover, .group-size-btn:hover, #apply-filters:hover, .clear-days-btn:hover {
+    background-color: #f9f7f7; /* Light background on hover for visual feedback */
+    border-color: #3f72af; /* Highlighted border on hover */
+    color: #3f72af; /* Text color change on hover for visibility */
+}
+
+/* Active state styling for buttons to indicate selection */
+.day-btn.active, .time-btn.active, .type-btn.active, .group-size-btn.active {
+    background-color: #3f72af; /* Vibrant background for active state */
+    color: #ffffff; /* White text for contrast and readability */
+    border-color: #2c598a; /* Slightly darker border for depth */
+    font-weight: bold; /* Bold text for emphasis */
+}
+
+#apply-filters {
+    background-color: #4CAF50; /* Green background */
+    color: white; /* White text */
+    border: 2px solid #4CAF50; /* Thicker matching border */
+    border-radius: 5px; /* Consistent rounded corners */
+    padding: 10px 20px; /* Padding for size */
+    margin-top: 20px; /* Margin for spacing */
+    cursor: pointer; /* Indicates clickable */
+}
+
+#apply-filters:hover {
+    background-color: #368B2E; /* Darker green on hover */
+    border-color: #2E7B25; /* Darker border for contrast */
+}
+
+#club-filters {
+    background-color: #ffffff; /* Pure white background */
+    padding: 25px; /* Increased padding for more space */
+    border-radius: 15px; /* More pronounced rounded corners */
+    margin: 20px auto; /* Adjusted margin for better alignment */
+    width: 90%; /* Adjusted width for a more contained look */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1); /* Softer shadow for a subtle depth */
+    text-align: left; /* Align text to the left for a cleaner look */
+    color: #112d4e; /* Keeping the text color for readability */
+}
+
+/* Filter Group and Options */
+.filter-group {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Responsive grid layout */
+    gap: 25px; /* Increased gap for more breathing space */
+}
+
+.filter-option {
+    background-color: #f8f9fa; /* Very light grey for a subtle distinction */
+    padding: 15px; /* Increased padding for more room */
+    border-radius: 10px; /* Soft rounded corners */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05); /* Even softer shadow for depth */
+}
+
+.filter-option label {
+    font-weight: 600; /* Make labels slightly bolder */
+    color: #3f72af; /* Use theme color for labels */
+    margin-bottom: 15px; /* Add more space below the label */
+    display: block; /* Ensure it's block for the margin to work */
+}
+
+#apply-filters {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #4CAF50; /* Green */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#apply-filters:hover {
+    background-color: #112d4e;
+}
+
+select, input[type="checkbox"] {
+    margin-top: 5px;
+}
+
+.days-container {
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.day-btn {
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.day-btn.active {
+    background-color: #3f72af;
+    color: white;
+}
+
+.toggle-switch {
+    position: relative;
+    display: inline-block;
+    width: 100px;
+    height: 34px;
+    background-color: #f0f0f0;
+    border-radius: 17px;
+    margin: 10px 0;
+}
+
+.toggle-ball {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 30px;
+    height: 30px;
+    background-color: white;
+    border-radius: 50%;
+    transition: transform 0.2s ease-in-out;
+}
+
+input[type="checkbox"]:checked + .toggle-label .toggle-ball {
+    transform: translateX(66px);
+}
+
+.toggle-texts {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 5px;
+}
+
+.text-professional, .text-community {
+    font-size: 12px;
+    color: #666;
+    user-select: none;
+}
+.type-toggle {
+    display: flex;
+    border: 2px solid #f0f0f0; /* Light gray border */
+    border-radius: 20px;
+    overflow: hidden;
+    padding: 2px;
+    background-color: #f0f0f0; /* Background of the toggle container */
+}
+
+.type-btn {
+    flex: 1;
+    background-color: #f0f0f0;
+    color: #666;
+    border: none;
+    border-radius: 18px; /* Slightly less than the container to fit nicely */
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+    user-select: none;
+}
+
+.type-btn.active {
+    background-color: #3f72af; /* Active state background */
+    color: white; /* Active state text color */
+}
+
+
+/* Adjusting for pastel colors */
+.day-btn {
+    background-color: #f0f0f0; /* Light gray for inactive */
+    /* Other styles remain unchanged */
+}
+
+.day-btn.active {
+    background-color: #90ee90; /* Pastel green for active days */
+    color: #fff;
+}
+
+/* Styling for the "Apply Filters" button with a pastel touch */
+#apply-filters {
+    background-color: #f0f0f0; /* Light gray */
+    color: #3f72af; /* Pastel blue text */
+    /* Other styles remain unchanged */
+}
+
+#apply-filters:hover {
+    background-color: #add8e6; /* Slightly darker pastel blue on hover */
+    color: white;
+}
+
+
+.time-btn, .group-size-btn {
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+    margin: 2px;
+}
+
+.time-btn.active, .group-size-btn.active {
+    background-color: #3f72af;
+    color: white;
+    border-color: #3f72af;
+}
+
+

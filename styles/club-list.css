@@ -1,0 +1,141 @@
+
+#club-list h2 {
+    display: block; /* Change to block to allow width manipulation */
+    background-color: #ffffff; /* Set background color to white */
+    padding: 20px 30px; /* Increase padding for a larger appearance */
+    border-radius: 20px; /* Increase border-radius for more pronounced rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: Adjusts the shadow for depth */
+    color: #3f72af; /* Keep the text color for contrast */
+    margin: 20px auto; /* Adjust margin to center the title */
+    font-size: 28px; /* Increase font size for larger text */
+    width: fit-content; /* Adjust width to fit its content */
+    max-width: 90%; /* Prevents the title from stretching too wide on larger screens */
+    text-align: center; /* Center-align the text */
+}
+
+
+#clubs li {
+    display: flex;
+    justify-content: space-between; /* Aligns children (club info and badges) on opposite ends */
+    align-items: center; /* Centers items vertically */
+    flex-wrap: wrap; /* Allows items to wrap if needed, adjust if you strictly want one line */
+    background-color: #f0f0f0; /* Light gray background */
+    margin: 5px 0; /* Space between items */
+    padding: 10px 15px; /* Padding inside each item */
+    border-radius: 5px; /* Rounded corners */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+    transition: background-color 0.3s, box-shadow 0.3s; /* Smooth transition for interaction */
+    cursor: pointer; /* Indicates an interactive element */
+    position: relative; /* Needed for absolute positioning of the icon */
+    color: #333; /* Darker text for better contrast */
+    border: 1px solid transparent; /* Ready for hover effect without shifting content */
+}
+
+#clubs li span {
+    display: inline-block;
+    margin-left: 20px; /* Space for the arrow */
+}
+
+#clubs li::before {
+    content: '\2190'; /* Unicode character for left arrow */
+    position: absolute;
+    left: 10px; /* Aligns arrow closer to the left edge */
+    top: 50%;
+    transform: translateY(-50%) rotate(180deg); /* Centers the arrow vertically */
+    color: #666; /* Color of the arrow */
+    font-weight: bold; /* Make the arrow appear thicker */
+    font-size: 18px; /* Adjust size as needed */
+    transition: transform 0.3s ease, box-shadow 0.3s ease, width 0.3s ease, height 0.3s ease; /* Smooth transition for hover effects */
+
+}
+
+
+#clubs li:hover, #clubs li:focus {
+    background-color: #e0e0e0; /* Slightly darker background on hover/focus */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Larger shadow on hover/focus */
+    border-color: #ccc; /* Subtle border color on hover to indicate interactivity */
+}
+
+#clubs li:active {
+    background-color: #d0d0d0; /* Even darker background to simulate a press */
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2); /* Smaller shadow to simulate being pressed */
+}
+
+@media (max-width: 768px) {
+    #clubs li {
+        flex-direction: column; /* Stack club info and badges vertically */
+        padding: 20px; /* Increase padding for a touch-friendly interface */
+        text-align: center; /* Center-align the content for a cohesive look */
+    }
+
+    #clubs li .club-info, #clubs li .badges {
+        width: 100%; /* Full width for both club info and badges container */
+        margin-bottom: 10px; /* Add some space between club info and badges */
+    }
+
+    #clubs li::before {
+        content: '\2192'; /* Change arrow direction to right */
+        order: -1; /* Make the arrow appear above the text */
+        position: static; /* Ensures the arrow flows in the normal document flow */
+        transform: rotate(0deg); /* Reset rotation for mobile */
+        margin-right: 0; /* Remove right margin on mobile */
+        margin-bottom: 10px; /* Add space below the arrow */
+        /* New Styles for Circle and Shadow */
+        display: inline-flex; /* Use inline-flex to keep the arrow aligned nicely with text */
+        align-items: center;
+        justify-content: center;
+        width: 24px; /* Circle size */
+        height: 24px; /* Circle size */
+        border-radius: 50%; /* Makes it a circle */
+        background-color: #fff; /* Circle background color */
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1); /* Soft shadow for "cuteness" */
+        font-size: 16px; /* Adjusted font size for better visibility */
+        line-height: 1; /* Adjust line height to vertically center the arrow in the circle */
+        color: #3f72af; /* Arrow color, can be adjusted */
+    }
+
+    #clubs li:hover::before {
+        transform: scale(1.2); /* Enlarge the arrow and circle */
+        box-shadow: 0 6px 8px rgba(0,0,0,0.2); /* Deeper shadow for a popping effect */
+        width: 28px; /* Slightly increase the circle size */
+        height: 28px; /* Slightly increase the circle size */
+    }
+    
+
+    #clubs li span {
+        margin-left: 0; /* Remove the left margin as arrow is now inline */
+    }
+
+    .badge {
+        font-size: 14px; /* Slightly larger font size for better readability */
+        padding: 8px 12px; /* Increase padding for a larger touch target */
+    }
+
+    #club-list h2 {
+        font-size: 24px; /* Adjust title font size for smaller screens */
+        padding: 15px 25px; /* Adjust padding to fit smaller screens */
+        width: auto; /* Allow the title background to fit content width */
+    }
+}
+
+
+#club-list h2 {
+    font-size: 24px;
+    color: #3f72af; /* Adjust to match your color scheme */
+    margin-bottom: 20px;
+    text-align: center; /* Centers the title for emphasis */
+    font-family: 'Poppins', sans-serif; /* Example font family */
+}
+
+
+#club-list ul {
+    list-style: none;
+}
+
+#club-list li {
+    background-color: #f9f7f7;
+    margin-bottom: 10px;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
