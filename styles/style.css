@@ -101,12 +101,6 @@
     font-size: 20px; /* Increase as needed */
 }
 
-.filter-group {
-    transition: max-height 0.5s ease-out;
-    overflow: hidden;
-    max-height: 0; /* Initially hidden */
-}
-
 #apply-filters {
     margin-top: 20px;
     padding: 10px 20px;

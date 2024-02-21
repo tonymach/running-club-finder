@@ -78,7 +78,7 @@
 }
 
 /* General button styling */
-.day-btn, .time-btn, .type-btn, .group-size-btn, #apply-filters, .clear-days-btn {
+.day-btn, .time-btn, .type-btn, .group-size-btn, #apply-filters, .clear-days-btn, .clear-type-btn, .clear-time-btn, .clear-group-size-btn {
     background-color: #fff; /* White background */
     color: #112d4e; /* Dark blue text for contrast */
     border: 2px solid #dbe2ef; /* Thicker border for definition */
@@ -175,18 +175,7 @@ select, input[type="checkbox"] {
     justify-content: center;
 }
 
-.day-btn {
-    background-color: #f0f0f0;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 5px 10px;
-    cursor: pointer;
-}
 
-.day-btn.active {
-    background-color: #3f72af;
-    color: white;
-}
 
 .toggle-switch {
     position: relative;
@@ -224,43 +213,8 @@ input[type="checkbox"]:checked + .toggle-label .toggle-ball {
     color: #666;
     user-select: none;
 }
-.type-toggle {
-    display: flex;
-    border: 2px solid #f0f0f0; /* Light gray border */
-    border-radius: 20px;
-    overflow: hidden;
-    padding: 2px;
-    background-color: #f0f0f0; /* Background of the toggle container */
-}
-
-.type-btn {
-    flex: 1;
-    background-color: #f0f0f0;
-    color: #666;
-    border: none;
-    border-radius: 18px; /* Slightly less than the container to fit nicely */
-    padding: 10px 20px;
-    cursor: pointer;
-    transition: background-color 0.3s, color 0.3s;
-    user-select: none;
-}
-
-.type-btn.active {
-    background-color: #3f72af; /* Active state background */
-    color: white; /* Active state text color */
-}
 
 
-/* Adjusting for pastel colors */
-.day-btn {
-    background-color: #f0f0f0; /* Light gray for inactive */
-    /* Other styles remain unchanged */
-}
-
-.day-btn.active {
-    background-color: #90ee90; /* Pastel green for active days */
-    color: #fff;
-}
 
 /* Styling for the "Apply Filters" button with a pastel touch */
 #apply-filters {
@@ -275,7 +229,7 @@ input[type="checkbox"]:checked + .toggle-label .toggle-ball {
 }
 
 
-.time-btn, .group-size-btn {
+.time-btn, .group-size-btn, .type-btn, .day-btn {
     background-color: #f0f0f0;
     border: 1px solid #ccc;
     border-radius: 5px;
@@ -284,10 +238,16 @@ input[type="checkbox"]:checked + .toggle-label .toggle-ball {
     margin: 2px;
 }
 
-.time-btn.active, .group-size-btn.active {
+.time-btn.active, .group-size-btn.active , .type-btn.active, .day-btn.active  {
     background-color: #3f72af;
     color: white;
     border-color: #3f72af;
 }
 
 
+
+.filter-group {
+    transition: max-height 0.5s ease-out;
+    overflow: hidden;
+    max-height: 0; /* Initially hidden */
+}

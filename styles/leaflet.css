@@ -37,3 +37,37 @@
 	left: 0 !important;
 	z-index: 99999;
 }
+
+/* Custom Popup Styling */
+.leaflet-popup-content-wrapper .popup-club-name {
+    color: #3f72af; /* Sets the color of the club name in the popup */
+    margin-bottom: 10px; /* Spacing below the club name */
+    text-align: center; /* Center aligns the title */
+}
+
+.leaflet-popup-content-wrapper .popup-more-info-btn {
+    background-color: #4CAF50; /* Green background for the button */
+    color: white; /* White text for the button */
+    border: none; /* Removes default border */
+    border-radius: 5px; /* Rounded corners for the button */
+    padding: 5px 10px; /* Padding inside the button */
+    display: block; /* Ensures the button takes the full width */
+    margin: 0 auto; /* Centers the button */
+    cursor: pointer; /* Changes cursor to pointer on hover */
+}
+
+/* Styling when hovering over the button */
+.leaflet-popup-content-wrapper .popup-more-info-btn:hover {
+    background-color: #367B48; /* Slightly darker shade of green on hover */
+}
+
+/* Additional custom styling for the popup itself */
+.custom-popup .leaflet-popup-content {
+    padding: 10px; /* Adds padding around the content for better spacing */
+}
+
+.custom-popup .leaflet-popup-content-wrapper {
+    border-radius: 8px; /* Rounds the corners of the popup */
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23); /* Adds shadow for depth */
+    font-family: 'Poppins', sans-serif; /* Ensures font consistency */
+}
