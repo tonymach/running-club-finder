@@ -1,4 +1,20 @@
 
+
+var clubIcon = L.icon({
+    iconUrl: 'images/shoeIcon.png',
+    iconSize: [50, 50], // Scale down to 50x50 pixels or to a size that fits your design
+    iconAnchor: [25, 50], // Adjust based on the actual size to anchor the icon correctly
+    popupAnchor: [0, -50] // Adjust so the popup opens above the icon
+});
+
+var userIcon = L.icon({
+    iconUrl: 'images/medalIcon.png',
+    iconSize: [50, 50], // Similarly, scale down to an appropriate size
+    iconAnchor: [25, 50],
+    popupAnchor: [0, -50]
+});
+
+
 // Function to load and parse JSON data from a file
 async function loadRunningClubsData() {
     try {
@@ -25,17 +41,12 @@ function displayClubsOnMap(clubs, map) {
             </div>
         `;
 
-        const marker = L.marker([club.location.lat, club.location.lon]).addTo(map);
+        const marker = L.marker([club.location.lat, club.location.lon], {icon: clubIcon}).addTo(map);
         marker.bindPopup(popupContent, {
             className: 'custom-popup' // Use this for minimal styling adjustments if needed
         });
     });
 }
-
-
-
-
-
 
 // Assuming 'userLat' and 'userLon' hold the user's latitude and longitude
 function findClosestClubs(clubs, userLat, userLon, count = 5) {
@@ -102,7 +113,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         var userLat = position.coords.latitude;
         var userLon = position.coords.longitude;
         
-        L.marker([userLat, userLon]).addTo(map)
+        L.marker([userLat, userLon], {icon: userIcon}).addTo(map)
         .bindPopup('You are here.');
         // Load and display clubs data, assuming loadRunningClubsData returns the clubs data
         const runningClubsData = await loadRunningClubsData();
