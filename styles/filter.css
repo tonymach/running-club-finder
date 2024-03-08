@@ -118,6 +118,11 @@
     border-color: #2E7B25; /* Darker border for contrast */
 }
 
+#apply-btn-container {
+    display: flex;
+    justify-content: center;
+}
+
 #club-filters {
     background-color: #ffffff; /* Pure white background */
     padding: 25px; /* Increased padding for more space */
@@ -125,7 +130,7 @@
     margin: 20px auto; /* Adjusted margin for better alignment */
     width: 90%; /* Adjusted width for a more contained look */
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1); /* Softer shadow for a subtle depth */
-    text-align: left; /* Align text to the left for a cleaner look */
+    text-align: center; /* Align text to the left for a cleaner look */
     color: #112d4e; /* Keeping the text color for readability */
 }
 

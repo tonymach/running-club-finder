@@ -31,6 +31,104 @@ async function loadRunningClubsData() {
     }
 }
 
+
+async function getNearestIntersection(lat, lon) {
+    const url = `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lon}&format=json&zoom=18`;
+
+    try {
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+
+        // Attempt to construct a more detailed location description
+        const road = data.address.road || '';
+        const neighbourhood = data.address.neighbourhood || data.address.suburb || '';
+        const cityDistrict = data.address.city_district || '';
+        const city = data.address.city || '';
+        
+        // Combine available information
+        let locationDescription = road;
+        if (neighbourhood && neighbourhood !== cityDistrict && neighbourhood !== road) {
+            locationDescription += locationDescription ? ` and ${neighbourhood}` : neighbourhood;
+        } else if (cityDistrict && cityDistrict !== road) {
+            locationDescription += locationDescription ? `, near ${cityDistrict}` : cityDistrict;
+        } else if (city && city !== road) {
+            locationDescription += locationDescription ? `, in ${city}` : city;
+        }
+
+        // Fallback to a broader location if specific details are unavailable
+        return locationDescription || city || 'Unknown location';
+    } catch (error) {
+        console.error('Failed to fetch nearest intersection:', error);
+        return 'Unknown location';
+    }
+}
+
+
+
+
+async function displayClubsList(clubs, userLat, userLon) {
+    const listElement = document.getElementById('clubs');
+    listElement.innerHTML = ''; // Clear existing list items
+
+    for (const club of clubs) {
+        // Await the nearest intersection or fallback to distance
+        let locationInfo;
+        try {
+            locationInfo = await getNearestIntersection(club.location.lat, club.location.lon);
+        } catch (error) {
+            console.error("Error getting nearest intersection:", error);
+            locationInfo = `${getDistanceFromLatLonInKm(userLat, userLon, club.location.lat, club.location.lon).toFixed(2)} km away`;
+        }
+
+        const listItem = document.createElement('li');
+        listItem.id = `club-${club.id}`; // Assuming each club has a unique ID
+
+        listItem.innerHTML = `
+            <span><b>${club.name}</b> - <b>${locationInfo}</b></span>
+            <div class="badges"></div>
+        `;
+
+        // Populate badges
+        const badgesContainer = listItem.querySelector('.badges');
+        if (club.beginnerFriendly) {
+            badgesContainer.appendChild(createBadge('Beginner Friendly', 'beginner-friendly'));
+        }
+        if (club.groupSize && club.groupSize === '11-20') {
+            badgesContainer.appendChild(createBadge('Small Group', 'small-group'));
+        }
+        if (club.bagDrop) {
+            badgesContainer.appendChild(createBadge('Bag Drop', 'bag-drop'));
+        }
+
+        // Append the list item to the list
+        listElement.appendChild(listItem);
+
+        // Attach an event listener to open the modal with club details
+        listItem.addEventListener('click', () => openModalWithClubInfo(club));
+    };
+}
+
+
+function getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
+    var R = 6371; // Radius of the earth in km
+    var dLat = deg2rad(lat2 - lat1);
+    var dLon = deg2rad(lon2 - lon1);
+    var a = 
+      Math.sin(dLat/2) * Math.sin(dLat/2) +
+      Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * 
+      Math.sin(dLon/2) * Math.sin(dLon/2);
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a)); 
+    var d = R * c; // Distance in km
+    return d;
+}
+
+function deg2rad(deg) {
+    return deg * (Math.PI / 180);
+}
+
 function displayClubsOnMap(clubs, map) {
     clubs.forEach(club => {
         // Simplified HTML content for the marker popup
@@ -84,49 +182,64 @@ function deg2rad(deg) {
 
 
 document.addEventListener('DOMContentLoaded', async () => {
-    var map = L.map('map').setView([51.505, -0.09], 13);
+    
+    const runningClubsData = await loadRunningClubsData();
+
+    // Initialize the map with a default view.
+
+    // Initialize the map centered on Toronto as a placeholder.
+    var map = L.map('map').setView([43.651070, -79.347015], 13); // Coordinates for Toronto
+
+    // Add the tile layer to the map.
     L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
         attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
         maxZoom: 18,
-        id: 'mapbox/streets-v11', // You can change "streets-v11" to other styles
+        id: 'mapbox/streets-v11',
         tileSize: 512,
         zoomOffset: -1,
         accessToken: 'pk.eyJ1IjoicnVubmVyc2hpZ2hpbnN0IiwiYSI6ImNsc293d3VkaTBrM2Yya21wOGs5amltZzEifQ.wrp2n2y_MOPmKCQCrVulKQ'
     }).addTo(map);
 
-    const runningClubsData = await loadRunningClubsData();
-    if (runningClubsData && runningClubsData.runningClubs) {
-        displayClubsOnMap(runningClubsData.runningClubs, map);
-    }
-
-    map.addControl(new L.Control.FullScreen({
-        position: 'topright', // change the position
-        title: 'Show me the full map', // title when not fullscreen
-        titleCancel: 'Exit fullscreen mode', // title when fullscreen
-        forceSeparateButton: true, // force separate button to detach from zoom buttons, default false
-
-    }));
-    
-
-
+    // Attempt to get the user's geolocation.
     navigator.geolocation.getCurrentPosition(async function(position) {
+        // User's location obtained successfully; re-center the map on the user's location.
         var userLat = position.coords.latitude;
         var userLon = position.coords.longitude;
-        
+
+        // Update map view to user's location with an appropriate zoom level.
+        map.setView([userLat, userLon], 13);
+
+        // Optionally, add a marker at the user's location.
         L.marker([userLat, userLon], {icon: userIcon}).addTo(map)
-        .bindPopup('You are here.');
-        // Load and display clubs data, assuming loadRunningClubsData returns the clubs data
+            .bindPopup('You are here.');
+
+        // Load and display running clubs, find closest clubs, etc.
+        // This part of your logic remains the same.
         const runningClubsData = await loadRunningClubsData();
         if (runningClubsData && runningClubsData.runningClubs) {
+            displayClubsOnMap(runningClubsData.runningClubs, map);
             const closestClubs = findClosestClubs(runningClubsData.runningClubs, userLat, userLon);
-            displayClubsOnMap(closestClubs, map);
             updateMapViewWithClubs(closestClubs, map);
         }
-    }, function() {
-        // Handle error or denial by showing the fallback modal or a default behavior
-        showFallbackModal();
+
+        displayClubsList(runningClubsData.runningClubs, userLat, userLon); // Now passing user location
+
+    }, function(error) {
+        // Geolocation failed or was denied by the user.
+        console.warn(`Geolocation error: ${error.message}`);
+        // You can handle this case as needed, maybe show a modal or alert.
+        // Since the map is already initialized with a default view, it remains usable.
     });
-    
+
+    map.addControl(new L.Control.FullScreen({
+        position: 'topright',
+        title: 'Show me the full map',
+        titleCancel: 'Exit fullscreen mode',
+        forceSeparateButton: true,
+    }));
+
+
+
 });
 
 
@@ -319,6 +432,7 @@ document.querySelectorAll('.type-btn').forEach(btn => {
         }
     
 
+    let modalMapInstance = null;
     
     function openModalWithClubInfo(details) {
         // Display the modal
@@ -332,6 +446,36 @@ document.querySelectorAll('.type-btn').forEach(btn => {
         socialLinksContainer.innerHTML = '';
         contactInfoContainer.innerHTML = '';
     
+    // Check if the modal map has already been initialized
+    if (!modalMapInstance) {
+        // Initialize the map in the modal and assign it to the global variable
+        modalMapInstance = L.map('map-section-info', {
+            center: [details.location.lat, details.location.lon],
+            zoom: 13
+        });
+
+        L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+            attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+            maxZoom: 18,
+            id: 'mapbox/streets-v11',
+            tileSize: 512,
+            zoomOffset: -1,
+            accessToken: 'pk.eyJ1IjoicnVubmVyc2hpZ2hpbnN0IiwiYSI6ImNsc293d3VkaTBrM2Yya21wOGs5amltZzEifQ.wrp2n2y_MOPmKCQCrVulKQ'
+        }).addTo(modalMapInstance);
+    } else {
+        // Map is already initialized, just update its view
+        modalMapInstance.setView([details.location.lat, details.location.lon], 13);
+    }
+    // Clear existing markers before adding a new one
+    modalMapInstance.eachLayer(function (layer) {
+        if (layer instanceof L.Marker) {
+            modalMapInstance.removeLayer(layer);
+        }
+    });
+
+    // Add marker to the map
+    L.marker([details.location.lat, details.location.lon], {icon: clubIcon}).addTo(modalMapInstance);
+
         // Populate social media links if they exist
         details.socials.forEach(social => {
             if (social.instagram) {
