@@ -27,8 +27,8 @@ async function login(event) {
   }
   
   function showClubsContainer(clubIndex = null) {
-    document.getElementById('loginForm').style.display = 'none';
-    document.getElementById('clubs-container').style.display = 'block';
+    document.getElementById('login-container').style.display = 'none';
+    document.getElementById('clubs-container-styled').style.display = 'block';
     loadClubs();
     if (clubIndex !== null) {
       showAddEditForm(clubIndex);

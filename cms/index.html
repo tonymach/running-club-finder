@@ -11,34 +11,53 @@
     <link rel="stylesheet" href="/styles/modal.css">
     <link rel="stylesheet" href="/styles/filter.css">
     <link rel="stylesheet" href="/styles/club-list.css">
+    <link rel="stylesheet" href="/styles/login.css">
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body>
     <div class="top-section">
-        <img src="/images/cntower.png" alt="Running Club Logo" class="logo" id="logoButton">
-        <h1>Running Club Management System</h1>
-        <div class="ticker-wrap">
+        
+        <div class="ticker-wrap" style="margin-bottom: 10px;">
             <div class="ticker">
-                <!-- Only one ticker item, it will be repeated via CSS or JS -->
-                <div class="ticker-item">Welcome to the CMS</div>
-                <div class="ticker-item">Welcome to the CMS</div>
-                <div class="ticker-item">Welcome to the CMS</div>
-                <div class="ticker-item">Welcome to the CMS</div>
-                <div class="ticker-item">Welcome to the CMS</div>
-
+                <div class="ticker-item">Pace yourself, update your club info regularly!</div>
+                <div class="ticker-item">Don't run out of steam, keep your club details fresh!</div>
+                <div class="ticker-item">Your club's presence is a marathon, not a sprint.</div>
+                <div class="ticker-item">Hills are just speed bumps on the road to club success!</div>
+                <div class="ticker-item">Managing your club is like a runner's high, without the sweat!</div>
+                <div class="ticker-item">Run with it! Your club's success starts here.</div>
+                <div class="ticker-item">Chase down new members with irresistible club info!</div>
+                <div class="ticker-item">Fuel your club's growth with regular updates.</div>
+                <div class="ticker-item">Blaze a trail to club greatness!</div>
+                <div class="ticker-item">Leave other clubs in the dust with your awesome updates!</div>
             </div>
         </div>
+        
+
+        <img src="/images/sunset.png" alt="Running Club Logo" class="logo" id="logoButton">
+       
+       
+        <h1>Update your Running Club</h1>
     </div>
 
-    <form id="loginForm" onsubmit="login(event)">
-        <label for="codeInput">Enter your code:</label>
-        <input type="text" id="codeInput" required>
-        <button type="submit">Login</button>
-    </form>
+    
 
-    <div id="clubs-container" style="display: none;">
+    <div class="login-container" id="login-container">
+        <form id="loginForm" onsubmit="login(event)">
+            <h2>Club Owner's Secret Handshake</h2>
+            <label for="codeInput">Enter your super-secret management code:</label>
+            <input type="text" id="codeInput" required>
+            <button type="submit">Unlock your club management superpowers</button>
+        </form>
+    </div>
+    
+    <div id="clubs-container" class="clubs-container-styled"> 
+        <h2>Your Clubs (a.k.a. Your Pride and Joy)</h2> 
         <div id="clubs-list"></div>
-        <button onclick="showAddEditForm()">Add New Club</button>
+        
+        <button class="add-club-button" onclick="showAddEditForm()">Add New Club</button>
+
+    Copy code
         <div id="add-edit-club-form" style="display: none;">
             <!-- Club form, IDs, and functions to be updated in JS -->
             <form id="club-form" onsubmit="submitClubForm(event)">
@@ -47,7 +66,7 @@
             <button onclick="hideForm()">Cancel</button>
         </div>
     </div>
-
+    
     <script src="rcms.js"></script>
 </body>
 </html>

@@ -1,0 +1,122 @@
+.login-container {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 40px;
+    background-color: #f9f7f7;
+    border-radius: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.login-container h2 {
+    font-size: 36px;
+    color: #3f72af;
+    margin-bottom: 30px;
+}
+
+.login-container label {
+    display: block;
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #112d4e;
+}
+
+.login-container input[type="text"] {
+    width: 100%;
+    padding: 15px;
+    font-size: 20px;
+    border: 2px solid #112d4e;
+    border-radius: 10px;
+    margin-bottom: 30px;
+}
+
+.login-container button {
+    padding: 15px 30px;
+    font-size: 24px;
+    background-color: #3f72af;
+    color: #f9f7f7;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.login-container button:hover {
+    background-color: #112d4e;
+}
+
+.clubs-container-styled {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 30px;
+    background-color: #f9f7f7;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.clubs-container-styled h2 {
+    font-size: 28px;
+    color: #3f72af;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.clubs-container-styled #clubs-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.clubs-container-styled .club-item {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.clubs-container-styled .club-item:hover {
+    transform: translateY(-5px);
+}
+
+.clubs-container-styled .club-item h3 {
+    font-size: 20px;
+    color: #112d4e;
+    margin-bottom: 10px;
+}
+
+.clubs-container-styled .club-item p {
+    color: #3f72af;
+    margin-bottom: 15px;
+}
+
+.clubs-container-styled .club-item button {
+    padding: 10px 20px;
+    background-color: #3f72af;
+    color: #f9f7f7;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.clubs-container-styled .club-item button:hover {
+    background-color: #112d4e;
+}
+
+.clubs-container-styled .add-club-button {
+    display: block;
+    margin: 20px auto;
+    padding: 12px 24px;
+    font-size: 18px;
+    background-color: #3f72af;
+    color: #f9f7f7;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.clubs-container-styled .add-club-button:hover {
+    background-color: #112d4e;
+}
