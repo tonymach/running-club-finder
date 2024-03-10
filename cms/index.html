@@ -57,14 +57,27 @@
         
         <button class="add-club-button" onclick="showAddEditForm()">Add New Club</button>
 
-    Copy code
-        <div id="add-edit-club-form" style="display: none;">
-            <!-- Club form, IDs, and functions to be updated in JS -->
-            <form id="club-form" onsubmit="submitClubForm(event)">
-                <!-- Form fields -->
+        <form id="club-form" onsubmit="submitClubForm(event)"> <input type="text" id="club-id" placeholder="Club ID"> <input type="text" id="club-name" placeholder="Club Name"> <input type="text" id="club-run-type" placeholder="Run Type"> <input type="text" id="club-business-name" placeholder="Business Name"> <input type="number" id="club-group-size" placeholder="Group Size"> <label> <input type="checkbox" id="club-beginner-friendly"> Beginner Friendly </label> <label> <input type="checkbox" id="club-bag-drop"> Bag Drop </label> <input type="number" id="club-location-lat" placeholder="Location Latitude"> <input type="number" id="club-location-lon" placeholder="Location Longitude">
+
+            <div id="socials-container">
+                <input type="text" id="social-instagram" placeholder="Instagram">
+                <input type="text" id="social-twitter" placeholder="Twitter">
+                <input type="text" id="social-website" placeholder="Website">
+                <input type="text" id="social-phone" placeholder="Phone">
+                <input type="text" id="social-email" placeholder="Email">
+            </div>
+            
+            <div id="schedule-container">
+                <input type="text" id="schedule-day" placeholder="Day">
+                <input type="text" id="schedule-time" placeholder="Time">
+                <input type="text" id="schedule-distance" placeholder="Distance">
+                <input type="text" id="schedule-duration" placeholder="Duration">
+                <input type="text" id="schedule-pace" placeholder="Pace">
+                <input type="text" id="schedule-intention" placeholder="Intention">
+            </div>
+            
+            <button type="submit">Save Club</button>
             </form>
-            <button onclick="hideForm()">Cancel</button>
-        </div>
     </div>
     
     <script src="rcms.js"></script>

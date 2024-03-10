@@ -94,7 +94,7 @@ const clubsData = {
     document.addEventListener('DOMContentLoaded', loadClubs);
     function showAddEditForm(index = null) {
     const form = document.getElementById('add-edit-club-form');
-    form.style.display = 'block';
+    // form.style.display = 'block';
     editingClubIndex = index; // Update the global editing index
     
     // Clear previous data
