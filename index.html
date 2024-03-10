@@ -27,32 +27,38 @@
 
 
     <img src="images/cntower.png" alt="Running Club Logo" class="logo" id="logoButton">
-
-    <script>
+  
+  <script>
         document.addEventListener('DOMContentLoaded', function() {
-
-    let pressTimer;
-
-    const logoButton = document.getElementById('logoButton');
-    logoButton.addEventListener('mousedown', function() {
-        // Start the timer
-        pressTimer = window.setTimeout(function() {
-            window.location.href = '/cms/';
-        }, 3000); // 5000 milliseconds = 5 seconds
-    });
-
-    logoButton.addEventListener('mouseup', function() {
-        // Clear the timeout if button is released
-        clearTimeout(pressTimer);
-    });
-
-    logoButton.addEventListener('mouseleave', function() {
-        // Also clear the timeout if the cursor leaves the button while pressing
-        clearTimeout(pressTimer);
-    });
-});
-
-    </script>
+            let tapCount = 0;
+            let tapTimer;
+        
+            const logoButton = document.getElementById('logoButton');
+            logoButton.addEventListener('click', function() {
+                tapCount++;
+                // If first tap, start the timer
+                if (tapCount === 1) {
+                    tapTimer = setTimeout(function() {
+                        // Reset tap count after 1 second of inactivity
+                        tapCount = 0;
+                    }, 1500); // Reset after 1 second
+                }
+                
+                if (tapCount === 6) {
+                    clearTimeout(tapTimer); // Clear the timer
+                    window.location.href = '/cms/'; // Navigate after 6 taps
+                    tapCount = 0; // Reset tap count
+                }
+            });
+        
+            logoButton.addEventListener('mouseleave', function() {
+                // Reset tap count if the cursor leaves the button
+                tapCount = 0;
+                clearTimeout(tapTimer);
+            });
+        });
+        </script>
+        
     <h1>Find Your Running Club</h1>
 
     <div class="ticker-wrap">
