@@ -68,7 +68,7 @@ const clubsData = {
     linkElement.setAttribute('download', exportFileDefaultName);
     linkElement.click();
     }
-    
+
     async function loadClubs() {
         try {
           const response = await fetch('clubs.json');
@@ -100,8 +100,6 @@ const clubsData = {
           console.error('Error fetching clubs data:', error);
         }
       }
-    // Initial load
-    document.addEventListener('DOMContentLoaded', loadClubs);
 
 
 function showAddEditForm(index = null) {
@@ -135,8 +133,16 @@ function showAddEditForm(index = null) {
         club.schedule.forEach(schedule => {
             addScheduleEntry(schedule);
         });
+
+        if (map && marker) {
+            var clubLat = parseFloat(club.location.lat);
+            var clubLon = parseFloat(club.location.lon);
+            map.setView([clubLat, clubLon], 13);
+            marker.setLatLng([clubLat, clubLon]);
+        }
+     }
     }
-    }
+
     function submitClubForm(event) {
     event.preventDefault();
     // Basic club information
@@ -264,5 +270,49 @@ function removeScheduleEntry(button) {
     button.parentNode.remove();
 }
 
+var map, marker; // Declare as global variables
 
-m
+document.addEventListener('DOMContentLoaded', function() {
+    loadClubs();
+
+    // Initialize the map on the "map" div with a given center and zoom
+    map = L.map('map').setView([43.651070, -79.347015], 13); // Remove 'var'
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+        maxZoom: 18,
+        id: 'mapbox/streets-v11',
+        tileSize: 512,
+        zoomOffset: -1,
+        accessToken: 'pk.eyJ1IjoicnVubmVyc2hpZ2hpbnN0IiwiYSI6ImNsc293d3VkaTBrM2Yya21wOGs5amltZzEifQ.wrp2n2y_MOPmKCQCrVulKQ'
+    }).addTo(map);
+
+    // Initialize draggable marker
+    marker = L.marker([43.651070, -79.347015], {
+        draggable: true
+    }).addTo(map);
+
+
+    // Event listener for marker drag end
+    marker.on('dragend', function(e) {
+        var position = marker.getLatLng();
+        updateLocationInputs(position.lat, position.lng);
+    });
+
+    // Function to update location inputs
+    function updateLocationInputs(lat, lng) {
+        document.getElementById('club-location-lat').value = lat;
+        document.getElementById('club-location-lon').value = lng;
+    }
+
+    // Optionally, handle user's geolocation
+    navigator.geolocation.getCurrentPosition(function(position) {
+        var userLat = position.coords.latitude;
+        var userLon = position.coords.longitude;
+        map.setView([userLat, userLon], 13);
+        marker.setLatLng([userLat, userLon]);
+        updateLocationInputs(userLat, userLon);
+    }, function() {
+        console.log("Geolocation is not enabled by the user");
+    });
+});
