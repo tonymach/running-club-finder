@@ -68,41 +68,52 @@ const clubsData = {
     linkElement.setAttribute('download', exportFileDefaultName);
     linkElement.click();
     }
+    
     async function loadClubs() {
-    try {
-    const response = await fetch('clubs.json');
-    const data = await response.json();
-    
-        clubsData.runningClubs = data.runningClubs; // This line is crucial
-    
-        const clubsList = document.getElementById('clubs-list');
-        clubsList.innerHTML = ''; // Clear existing clubs list
-        data.runningClubs.forEach((club, index) => {
+        try {
+          const response = await fetch('clubs.json');
+          const data = await response.json();
+          clubsData.runningClubs = data.runningClubs; // This line is crucial
+      
+          const clubsList = document.getElementById('clubs-list');
+          clubsList.innerHTML = ''; // Clear existing clubs list
+      
+          data.runningClubs.forEach((club, index) => {
             const clubElement = document.createElement('div');
-            clubElement.innerText = `${club.name} - ${club.runType}`;
+            clubElement.classList.add('club-item');
+      
+            const clubInfo = document.createElement('div');
+            clubInfo.innerHTML = `
+              <h3>${club.name}</h3>
+              <p>Run Type: ${club.runType}</p>
+            `;
+            clubElement.appendChild(clubInfo);
+      
             const editButton = document.createElement('button');
-            editButton.innerText = 'Edit';
+            editButton.innerHTML = '<i class="fas fa-edit"></i> Edit';
             editButton.onclick = () => showAddEditForm(index);
             clubElement.appendChild(editButton);
+      
             clubsList.appendChild(clubElement);
-        });
-    } catch (error) {
-        console.error('Error fetching clubs data:', error);
-    }
-    }
+          });
+        } catch (error) {
+          console.error('Error fetching clubs data:', error);
+        }
+      }
     // Initial load
     document.addEventListener('DOMContentLoaded', loadClubs);
-    function showAddEditForm(index = null) {
-    const form = document.getElementById('add-edit-club-form');
-    // form.style.display = 'block';
-    editingClubIndex = index; // Update the global editing index
-    
-    // Clear previous data
-    document.getElementById('club-form').reset();
-    
-    
+
+
+function showAddEditForm(index = null) {
+    editingClubIndex = index;
+
+    const scheduleContainer = document.getElementById('schedule-container');
+    // Clear existing schedules except the template
+    scheduleContainer.innerHTML = '';
+
     if (index !== null && clubsData.runningClubs[index]) {
         const club = clubsData.runningClubs[index];
+
         document.getElementById('club-id').value = club.id;
         document.getElementById('club-name').value = club.name;
         document.getElementById('club-run-type').value = club.runType;
@@ -121,18 +132,28 @@ const clubsData = {
         document.getElementById('social-phone').value = socials.phone;
         document.getElementById('social-email').value = socials.email;
     
-        const schedule = club.schedule[0];
-        document.getElementById('schedule-day').value = schedule.day;
-        document.getElementById('schedule-time').value = schedule.time;
-        document.getElementById('schedule-distance').value = schedule.distance;
-        document.getElementById('schedule-duration').value = schedule.duration;
-        document.getElementById('schedule-pace').value = schedule.pace;
-        document.getElementById('schedule-intention').value = schedule.intention;
+        club.schedule.forEach(schedule => {
+            addScheduleEntry(schedule);
+        });
     }
     }
     function submitClubForm(event) {
     event.preventDefault();
     // Basic club information
+
+    const scheduleInputs = document.querySelectorAll('#schedule-container .input-group');
+    const schedules = Array.from(scheduleInputs).map(group => ({
+        day: group.querySelector('.schedule-day').value,
+        time: group.querySelector('.schedule-time').value,
+        distance: group.querySelector('.schedule-distance').value,
+        duration: group.querySelector('.schedule-duration').value,
+        pace: group.querySelector('.schedule-pace').value,
+        intention: group.querySelector('.schedule-intention').value,
+    }));
+
+    clubData.schedule = schedules;
+
+
     const clubData = {
     id: document.getElementById('club-id').value,
     name: document.getElementById('club-name').value,
@@ -152,15 +173,6 @@ const clubsData = {
     website: document.getElementById('social-website').value,
     phone: document.getElementById('social-phone').value,
     email: document.getElementById('social-email').value,
-    }],
-    // Simplified handling of schedule, assuming single entry for demonstration
-    schedule: [{
-    day: document.getElementById('schedule-day').value,
-    time: document.getElementById('schedule-time').value,
-    distance: document.getElementById('schedule-distance').value,
-    duration: document.getElementById('schedule-duration').value,
-    pace: document.getElementById('schedule-pace').value,
-    intention: document.getElementById('schedule-intention').value,
     }]
     };
     
@@ -202,19 +214,55 @@ function addSocialInput() {
 }
 
 // Function to dynamically add schedule input
+let scheduleId = 0; // Unique identifier for each schedule input group
+
 function addScheduleInput() {
     const container = document.getElementById('schedule-container');
     const inputGroup = document.createElement('div');
-    inputGroup.classList.add('input-group');
+    inputGroup.classList.add('schedule-group');
     inputGroup.innerHTML = `
-        <input type="text" placeholder="Day">
-        <input type="text" placeholder="Time">
-        <input type="text" placeholder="Distance">
-        <input type="text" placeholder="Duration">
-        <input type="text" placeholder="Pace">
-        <input type="text" placeholder="Intention">
-        <button type="button" onclick="removeInput(this)">Remove</button>
+        <div class="schedule-inputs">
+            <input type="text" placeholder="Day" class="schedule-day">
+            <input type="text" placeholder="Time" class="schedule-time">
+            <input type="text" placeholder="Distance" class="schedule-distance">
+            <input type="text" placeholder="Duration" class="schedule-duration">
+            <input type="text" placeholder="Pace" class="schedule-pace">
+            <input type="text" placeholder="Intention" class="schedule-intention">
+        </div>
+        <button type="button" onclick="removeScheduleInput(this)">Remove</button>
     `;
     container.appendChild(inputGroup);
 }
-    
+
+function addScheduleEntry(schedule = { day: '', time: '', distance: '', duration: '', pace: '', intention: '' }) {
+    const scheduleContainer = document.getElementById('schedule-container');
+
+    // Create a new schedule entry div
+    const entryDiv = document.createElement('div');
+    entryDiv.classList.add('schedule-entry');
+
+    // Add input fields to the entry
+    entryDiv.innerHTML = `
+        <input type="text" class="schedule-day" placeholder="Day" value="${schedule.day}">
+        <input type="text" class="schedule-time" placeholder="Time" value="${schedule.time}">
+        <input type="text" class="schedule-distance" placeholder="Distance" value="${schedule.distance}">
+        <input type="text" class="schedule-duration" placeholder="Duration" value="${schedule.duration}">
+        <input type="text" class="schedule-pace" placeholder="Pace" value="${schedule.pace}">
+        <input type="text" class="schedule-intention" placeholder="Intention" value="${schedule.intention}">
+        <button type="button" onclick="removeScheduleEntry(this)">Remove</button>
+    `;
+
+    // Append the new entry to the schedule container
+    scheduleContainer.appendChild(entryDiv);
+}
+
+// Attach the addScheduleEntry function to the "Add Schedule" button click event
+document.getElementById('add-schedule').addEventListener('click', () => addScheduleEntry());
+
+
+function removeScheduleEntry(button) {
+    button.parentNode.remove();
+}
+
+
+m
