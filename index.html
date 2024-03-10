@@ -26,8 +26,33 @@
 <div class="top-section">
 
 
-    <img src="images/cntower.png" alt="Running Club Logo" class="logo">
+    <img src="images/cntower.png" alt="Running Club Logo" class="logo" id="logoButton">
 
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+
+    let pressTimer;
+
+    const logoButton = document.getElementById('logoButton');
+    logoButton.addEventListener('mousedown', function() {
+        // Start the timer
+        pressTimer = window.setTimeout(function() {
+            window.location.href = '/cms/';
+        }, 3000); // 5000 milliseconds = 5 seconds
+    });
+
+    logoButton.addEventListener('mouseup', function() {
+        // Clear the timeout if button is released
+        clearTimeout(pressTimer);
+    });
+
+    logoButton.addEventListener('mouseleave', function() {
+        // Also clear the timeout if the cursor leaves the button while pressing
+        clearTimeout(pressTimer);
+    });
+});
+
+    </script>
     <h1>Find Your Running Club</h1>
 
     <div class="ticker-wrap">
@@ -227,8 +252,6 @@
         
         <p id="modal-club-type">Run Type: <span></span></p>
 
-        <div id="map-section-info" style="height: 100px; width: 100%;"></div>
-
         <p id="modal-club-affiliation">Affiliation: <span></span></p>
 
         <div class="modal-socials" id="modal-socials">
@@ -248,6 +271,8 @@
         <!-- Accordion for Schedule -->
         <div id="schedule-accordion" class="accordion"></div>
         
+        <div id="map-section-info" style="height: 200px; width: 100%;"></div>
+
         <!-- Button Group at Footer -->
         <div class="modal-footer">
             <button id="add-to-calendar-bottom" class="btn">Add to Calendar</button>

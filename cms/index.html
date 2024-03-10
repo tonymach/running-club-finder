@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Running Club CMS</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/styles/style.css">
+    <link rel="stylesheet" href="/styles/modal.css">
+    <link rel="stylesheet" href="/styles/filter.css">
+    <link rel="stylesheet" href="/styles/club-list.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    <div class="top-section">
+        <img src="/images/cntower.png" alt="Running Club Logo" class="logo" id="logoButton">
+        <h1>Running Club Management System</h1>
+        <div class="ticker-wrap">
+            <div class="ticker">
+                <!-- Only one ticker item, it will be repeated via CSS or JS -->
+                <div class="ticker-item">Welcome to the CMS</div>
+                <div class="ticker-item">Welcome to the CMS</div>
+                <div class="ticker-item">Welcome to the CMS</div>
+                <div class="ticker-item">Welcome to the CMS</div>
+                <div class="ticker-item">Welcome to the CMS</div>
+
+            </div>
+        </div>
+    </div>
+
+    <form id="loginForm" onsubmit="login(event)">
+        <label for="codeInput">Enter your code:</label>
+        <input type="text" id="codeInput" required>
+        <button type="submit">Login</button>
+    </form>
+
+    <div id="clubs-container" style="display: none;">
+        <div id="clubs-list"></div>
+        <button onclick="showAddEditForm()">Add New Club</button>
+        <div id="add-edit-club-form" style="display: none;">
+            <!-- Club form, IDs, and functions to be updated in JS -->
+            <form id="club-form" onsubmit="submitClubForm(event)">
+                <!-- Form fields -->
+            </form>
+            <button onclick="hideForm()">Cancel</button>
+        </div>
+    </div>
+
+    <script src="rcms.js"></script>
+</body>
+</html>

@@ -1,0 +1,190 @@
+{
+  "runningClubs": [
+    {
+      "id": 1,
+      "name": "Toronto Trailblazers",
+      "runType": "Community",
+      "businessName": "Toronto Outdoor Gear",
+      "social": "https://example.com/torontotrailblazers",
+      "groupSize": "21-30",
+      "beginnerFriendly": false,
+      "bagDrop": false,
+      "location": {"lat": 43.6532, "lon": -79.3832},
+      "socials": [
+        {"preferred": "facebook"},
+        {"instagram": "https://www.instagram.com/torontotrailblazers/"},
+        {"facebook": "https://www.facebook.com/torontotrailblazers/"},
+        {"website": "https://www.torontotrailblazers.com"},
+        {"phone": "+14161234567"},
+        {"email": "contact@torontotrailblazers.com"}
+      ],
+      "schedule": [
+        {"day": "Tuesday", "time": "7:00 PM", "distance": "7 km", "duration": "40 mins", "pace": "Casual", "intention": "Social"},
+        {"day": "Thursday", "time": "7:00 PM", "distance": "10 km", "duration": "50 mins", "pace": "Moderate", "intention": "Endurance"}
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Queen Street Sprinters",
+      "runType": "Professional",
+      "businessName": "Queen's Running Supplies",
+      "social": "https://example.com/queensprinters",
+      "groupSize": "5-10",
+      "beginnerFriendly": true,
+      "bagDrop": true,
+      "location": {"lat": 43.6487, "lon": -79.3968},
+      "socials": [
+        {"preferred": "twitter"},
+        {"instagram": "https://www.instagram.com/queenstreetsprinters/"},
+        {"twitter": "https://twitter.com/queensprinters/"},
+        {"website": "https://www.queenstreetsprinters.com"},
+        {"phone": "+14162345678"},
+        {"email": "run@queenstreetsprinters.com"}
+      ],
+      "schedule": [
+        {"day": "Monday", "time": "6:00 AM", "distance": "5 km", "duration": "30 mins", "pace": "Fast", "intention": "Speed Work"},
+        {"day": "Wednesday", "time": "6:00 AM", "distance": "8 km", "duration": "45 mins", "pace": "Moderate", "intention": "Tempo Runs"},
+        {"day": "Saturday", "time": "8:00 AM", "distance": "15 km", "duration": "1h 15 mins", "pace": "Casual", "intention": "Long Run"}
+      ]
+    },
+    {
+      "id": 3,
+      "name": "High Park Harriers",
+      "runType": "Community",
+      "businessName": "High Park Sports",
+      "social": "https://example.com/highparkharriers",
+      "groupSize": "31-50",
+      "beginnerFriendly": true,
+      "bagDrop": true,
+      "location": {"lat": 43.6465, "lon": -79.4637},
+      "socials": [
+        {"preferred": "instagram"},
+        {"instagram": "https://www.instagram.com/highparkharriers/"},
+        {"facebook": "https://www.facebook.com/highparkharriers/"},
+        {"website": "https://www.highparkharriers.com"},
+        {"phone": "+14163456789"},
+        {"email": "info@highparkharriers.com"}
+      ],
+      "schedule": [
+        {"day": "Sunday", "time": "9:00 AM", "distance": "10 km", "duration": "1 hour", "pace": "Varied", "intention": "Community Run"},
+        {"day": "Wednesday", "time": "6:30 PM", "distance": "6 km", "duration": "35 mins", "pace": "Casual", "intention": "Midweek Motivation"}
+      ]
+    },
+      {
+        "id": 4,
+        "name": "Liberty Village Pacers",
+        "runType": "Professional",
+        "businessName": "Liberty Running Co.",
+        "social": "https://example.com/libertyvillagepacers",
+        "groupSize": "11-20",
+        "beginnerFriendly": false,
+        "bagDrop": true,
+        "location": {"lat": 43.6380, "lon": -79.4145},
+        "socials": [
+          {"preferred": "instagram"},
+          {"instagram": "https://www.instagram.com/libertyvillagepacers/"},
+          {"facebook": "https://www.facebook.com/libertyvillagepacers/"},
+          {"website": "https://www.libertyvillagepacers.com"},
+          {"phone": "+14164567890"},
+          {"email": "pace@libertyvillagepacers.com"}
+        ],
+        "schedule": [
+          {"day": "Tuesday", "time": "5:30 PM", "distance": "5 km", "duration": "30 mins", "pace": "Fast", "intention": "Speed Training"},
+          {"day": "Thursday", "time": "5:30 PM", "distance": "8 km", "duration": "45 mins", "pace": "Moderate", "intention": "Hill Workouts"}
+        ]
+      },
+      {
+        "id": 5,
+        "name": "Distillery District Dashers",
+        "runType": "Community",
+        "businessName": "Distillery Running Supplies",
+        "social": "https://example.com/distillerydashers",
+        "groupSize": "21-30",
+        "beginnerFriendly": true,
+        "bagDrop": false,
+        "location": {"lat": 43.6503, "lon": -79.3596},
+        "socials": [
+          {"preferred": "twitter"},
+          {"instagram": "https://www.instagram.com/distillerydashers/"},
+          {"twitter": "https://twitter.com/distillerydash/"},
+          {"website": "https://www.distillerydashers.com"},
+          {"phone": "+14165678901"},
+          {"email": "dash@distillerydashers.com"}
+        ],
+        "schedule": [
+          {"day": "Wednesday", "time": "6:00 PM", "distance": "7 km", "duration": "40 mins", "pace": "Casual", "intention": "Social Run"},
+          {"day": "Saturday", "time": "7:00 AM", "distance": "12 km", "duration": "1 hour", "pace": "Moderate", "intention": "Long Run"}
+        ]
+      },
+      {
+        "id": 6,
+        "name": "Yorkville Yoggers",
+        "runType": "Elite",
+        "businessName": "Yorkville Fitness",
+        "social": "https://example.com/yorkvilleyoggers",
+        "groupSize": "5-10",
+        "beginnerFriendly": false,
+        "bagDrop": true,
+        "location": {"lat": 43.6703, "lon": -79.3915},
+        "socials": [
+          {"preferred": "facebook"},
+          {"instagram": "https://www.instagram.com/yorkvilleyoggers/"},
+          {"facebook": "https://www.facebook.com/yorkvilleyoggers/"},
+          {"website": "https://www.yorkvilleyoggers.com"},
+          {"phone": "+14166789012"},
+          {"email": "run@yorkvilleyoggers.com"}
+        ],
+        "schedule": [
+          {"day": "Monday", "time": "6:00 AM", "distance": "10 km", "duration": "45 mins", "pace": "Fast", "intention": "Speed Work"},
+          {"day": "Friday", "time": "6:00 AM", "distance": "15 km", "duration": "1h 10 mins", "pace": "Fast", "intention": "Pre-Race"}
+        ]
+      },
+      {
+        "id": 7,
+        "name": "Scarborough Striders",
+        "runType": "Community",
+        "businessName": "Scarborough Athletics",
+        "social": "https://example.com/scarboroughstriders",
+        "groupSize": "31-50",
+        "beginnerFriendly": true,
+        "bagDrop": false,
+        "location": {"lat": 43.7731, "lon": -79.2578},
+        "socials": [
+          {"preferred": "instagram"},
+          {"instagram": "https://www.instagram.com/scarboroughstriders/"},
+          {"twitter": "https://twitter.com/scarbstriders/"},
+          {"website": "https://www.scarboroughstriders.com"},
+          {"phone": "+14167890123"},
+          {"email": "stride@scarboroughstriders.com"}
+        ],
+        "schedule": [
+          {"day": "Tuesday", "time": "6:30 PM", "distance": "6 km", "duration": "35 mins", "pace": "Varied", "intention": "Technique"},
+          {"day": "Sunday", "time": "8:00 AM", "distance": "20 km", "duration": "2 hours", "pace": "Moderate", "intention": "Marathon Prep"}
+        ]
+      },
+      {
+        "id": 8,
+        "name": "Etobicoke Endurers",
+        "runType": "Professional",
+        "businessName": "Etobicoke Running Club",
+        "social": "https://example.com/etobicokeendurers",
+        "groupSize": "11-20",
+        "beginnerFriendly": false,
+        "bagDrop": true,
+        "location": {"lat": 43.6205, "lon": -79.5132},
+        "socials": [
+          {"preferred": "website"},
+          {"instagram": "https://www.instagram.com/etobicokeendurers/"},
+          {"facebook": "https://www.facebook.com/etobicokeendurers/"},
+          {"website": "https://www.etobicokeendurers.com"},
+          {"phone": "+14168901234"},
+          {"email": "endure@etobicokeendurers.com"}
+        ],
+        "schedule": [
+          {"day": "Thursday", "time": "7:00 PM", "distance": "10 km", "duration": "50 mins", "pace": "Fast", "intention": "Tempo Run"},
+          {"day": "Saturday", "time": "7:00 AM", "distance": "18 km", "duration": "1h 30 mins", "pace": "Moderate", "intention": "Endurance"}
+        ]
+      }
+    ]
+  }
+  
