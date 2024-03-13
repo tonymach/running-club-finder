@@ -109,6 +109,12 @@ function showAddEditForm(index = null) {
     // Clear existing schedules except the template
     scheduleContainer.innerHTML = '';
 
+
+    // Clear existing social inputs
+    const socialsContainer = document.getElementById('socials-container');
+    socialsContainer.innerHTML = '';
+
+
     if (index !== null && clubsData.runningClubs[index]) {
         const club = clubsData.runningClubs[index];
 
@@ -124,12 +130,7 @@ function showAddEditForm(index = null) {
     
         // Assuming club.socials and club.schedule are arrays with at least one element.
         const socials = club.socials[0];
-        document.getElementById('social-instagram').value = socials.instagram;
-        document.getElementById('social-twitter').value = socials.twitter;
-        document.getElementById('social-website').value = socials.website;
-        document.getElementById('social-phone').value = socials.phone;
-        document.getElementById('social-email').value = socials.email;
-    
+
         club.schedule.forEach(schedule => {
             addScheduleEntry(schedule);
         });
@@ -140,8 +141,18 @@ function showAddEditForm(index = null) {
             map.setView([clubLat, clubLon], 13);
             marker.setLatLng([clubLat, clubLon]);
         }
+
+        club.socials.forEach(social => {
+            if (!social.preferred) {
+                addSocialInput(social);
+            }
+        });
+        createPreferredSocialDropdown(club.socials);
+
      }
     }
+
+    
 
     function submitClubForm(event) {
     event.preventDefault();
@@ -199,25 +210,74 @@ function showAddEditForm(index = null) {
     // Initial load
     loadClubs();
     
-// Function to dynamically add social input
-function addSocialInput() {
-    const container = document.getElementById('socials-container');
-    const inputGroup = document.createElement('div');
-    inputGroup.classList.add('input-group');
-    inputGroup.innerHTML = `
-        <label>Type:</label>
-        <select>
-            <option value="instagram">Instagram</option>
-            <option value="twitter">Twitter</option>
-            <option value="website">Website</option>
-            <option value="phone">Phone</option>
-            <option value="email">Email</option>
-        </select>
-        <input type="text" placeholder="Link or Contact">
-        <button type="button" onclick="removeInput(this)">Remove</button>
-    `;
-    container.appendChild(inputGroup);
-}
+    function addSocialInput(social) {
+        const container = document.getElementById('socials-container');
+        const inputGroup = document.createElement('div');
+        inputGroup.classList.add('input-group', 'social-input-group');
+        container.appendChild(inputGroup);
+    
+        // Determine social type and value
+        const socialType = Object.keys(social)[0];
+        const socialValue = social[socialType];
+    
+        // Define icon classes for each social type
+        const socialIcons = {
+            instagram: 'fab fa-instagram',
+            facebook: 'fab fa-facebook',
+            website: 'fas fa-globe',
+            phone: 'fas fa-phone',
+            email: 'fas fa-envelope'
+        };
+    
+        // Create icon element
+        const iconElement = document.createElement('i');
+        const iconClass = socialIcons[socialType] || 'fas fa-question-circle';
+        iconElement.className = iconClass;
+        iconElement.style.marginRight = '8px';
+        inputGroup.appendChild(iconElement);
+    
+        // Create input for the social value
+        const inputValue = document.createElement('input');
+        inputValue.type = 'text';
+        inputValue.classList.add('social-value');
+        inputValue.placeholder = socialType.charAt(0).toUpperCase() + socialType.slice(1);
+        inputValue.value = socialValue;
+        inputGroup.appendChild(inputValue);
+    }
+    
+    
+
+    function createPreferredSocialDropdown(socials) {
+        const dropdown = document.createElement('select');
+        dropdown.id = 'preferred-social';
+        dropdown.classList.add('preferred-social-dropdown');
+    
+        // Default option
+        const defaultOption = document.createElement('option');
+        defaultOption.value = '';
+        defaultOption.textContent = 'Select Preferred Contact';
+        dropdown.appendChild(defaultOption);
+    
+        // Add options based on available socials
+        socials.forEach(social => {
+            const option = document.createElement('option');
+            const socialType = Object.keys(social)[0];
+            option.value = socialType;
+            option.textContent = socialType.charAt(0).toUpperCase() + socialType.slice(1); // Capitalize
+            dropdown.appendChild(option);
+        });
+    
+        // Set the preferred option if it exists
+        const preferred = socials.find(social => social.preferred);
+        if (preferred) {
+            dropdown.value = preferred.preferred;
+        }
+    
+        // Append the dropdown to the container or a specific element
+        document.getElementById('socials-container').prepend(dropdown);
+    }
+    
+
 
 // Function to dynamically add schedule input
 let scheduleId = 0; // Unique identifier for each schedule input group
@@ -242,25 +302,40 @@ function addScheduleInput() {
 
 function addScheduleEntry(schedule = { day: '', time: '', distance: '', duration: '', pace: '', intention: '' }) {
     const scheduleContainer = document.getElementById('schedule-container');
-
-    // Create a new schedule entry div
     const entryDiv = document.createElement('div');
     entryDiv.classList.add('schedule-entry');
 
-    // Add input fields to the entry
     entryDiv.innerHTML = `
-        <input type="text" class="schedule-day" placeholder="Day" value="${schedule.day}">
-        <input type="text" class="schedule-time" placeholder="Time" value="${schedule.time}">
+        <select class="schedule-day" name="day">
+        <option value="Monday">Monday</option>
+        <option value="Tuesday">Tuesday</option>
+        <option value="Wednesday">Wednesday</option>
+        <option value="Thursday">Thursday</option>
+        <option value="Friday">Friday</option>
+    </select>
+    <select class="schedule-time" name="time">
+            <!-- Populate time options dynamically or manually here -->
+        </select>
         <input type="text" class="schedule-distance" placeholder="Distance" value="${schedule.distance}">
         <input type="text" class="schedule-duration" placeholder="Duration" value="${schedule.duration}">
         <input type="text" class="schedule-pace" placeholder="Pace" value="${schedule.pace}">
         <input type="text" class="schedule-intention" placeholder="Intention" value="${schedule.intention}">
         <button type="button" onclick="removeScheduleEntry(this)">Remove</button>
     `;
-
-    // Append the new entry to the schedule container
+    populateTimeOptions(entryDiv.querySelector('.schedule-time'));
     scheduleContainer.appendChild(entryDiv);
 }
+
+function populateTimeOptions(selectElement) {
+    const intervals = ['00:00', '00:15', '00:30', '00:45', '01:00']; // Extend this list as needed
+    intervals.forEach(interval => {
+        const option = document.createElement('option');
+        option.value = interval;
+        option.textContent = interval;
+        selectElement.appendChild(option);
+    });
+}
+
 
 // Attach the addScheduleEntry function to the "Add Schedule" button click event
 document.getElementById('add-schedule').addEventListener('click', () => addScheduleEntry());

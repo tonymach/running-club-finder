@@ -13,6 +13,12 @@
     <link rel="stylesheet" href="/styles/club-list.css">
     <link rel="stylesheet" href="/styles/login.css">
 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pikaday/css/pikaday.css">
+    <script src="https://cdn.jsdelivr.net/npm/pikaday/pikaday.js"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body>
@@ -58,80 +64,229 @@
         <div id="clubs-list"></div>
         
         <button class="add-club-button" onclick="showAddEditForm()">Add New Club</button>
-        <div class="club-form-container">
-            <form id="club-form" onsubmit="submitClubForm(event)">
+        <div id="clubs-container" class="clubs-container-styled club-form-container">
+            <h2>Your Club (a.k.a. Your Pride and Joy)</h2>
+            <div id="clubs-list"></div>
+            <button class="add-club-button" onclick="showAddEditForm()">Add New Club</button>
+            <div class="">
+                <form id="club-form" onsubmit="submitClubForm(event)">
+                    <div class="form-section">
+                        <h3>Basic Club Information</h3>
+                        <div class="input-group">
+                            <!-- Club ID is hidden, so no label needed here -->
+                            <input hidden type="text" id="club-id" placeholder="Club ID">
+                        </div>
+                        <div class="input-group">
+                            <label for="club-name">Club Name:</label>
+                            <input type="text" id="club-name" placeholder="Club Name">
+                        </div>
+
+                        <div class="input-group">
+                            <label for="club-run-type">Run Type:</label>
+                            <select id="club-run-type" onchange="toggleBusinessName()">
+                                <option value="Community">Community</option>
+                                <option value="Company">Company</option>
+                            </select>
+                        </div>
+
+                        <div class="input-group" id="business-name-group" style="display: none;">
+                            <label for="club-business-name">Business Name:</label>
+                            <input type="text" id="club-business-name" placeholder="Business Name">
+                        </div>
+                        <script>
+                            function toggleBusinessName() {
+                                var runType = document.getElementById("club-run-type").value;
+                                var businessNameGroup = document.getElementById("business-name-group");
+
+                                if (runType === "Company") {
+                                    businessNameGroup.style.display = "block";
+                                } else {
+                                    businessNameGroup.style.display = "none";
+                                }
+                            }
+                        </script>
+                        <div class="input-group">
+                            <label for="club-group-size">Group Size:</label>
+                            <select id="club-group-size">
+                                <option value="1-5">1-5</option>
+                                <option value="6-10">6-10</option>
+                                <option value="11-20">11-20</option>
+                                <option value="21-50">21-50</option>
+                                <option value="More than 50">More than 50</option>
+                            </select>
+                        </div>
+
+                        <div class="input-group checkbox-group">
+                            <h3 class="checkbox-title">Newbie Perks</h3>
+                            <div class="checkbox-container">
+                                <label>
+                                    <input type="checkbox" id="club-beginner-friendly">
+                                    <span class="checkbox-label">Beginner Friendly</span>
+                                </label>
+                                <label>
+                                    <input type="checkbox" id="club-bag-drop">
+                                    <span class="checkbox-label">Bag Drop</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Location Latitude and Longitude are hidden, so no label needed -->
+                        <div class="input-group">
+                            <input hidden type="number" id="club-location-lat" placeholder="Location Latitude">
+                        </div>
+                        <div class="input-group">
+                            <input hidden type="number" id="club-location-lon" placeholder="Location Longitude">
+                        </div>
+        
+                        <div class="input-group">
+                            <label for="map">Club Location:</label>
+                            <div id="map" style="height: 300px;"></div>
+                        </div>
+                    </div>
+        
+
                 <div class="form-section">
-                    <h3>Basic Club Information</h3>
-                    <!-- Club ID, Name, Run Type, Business Name, Group Size, Beginner Friendly, Bag Drop fields here -->
-                <div class="input-group">
-                    <input type="text" id="club-id" placeholder="Club ID">
-                </div>
-                <div class="input-group">
-                    <input type="text" id="club-name" placeholder="Club Name">
-                </div>
-                <div class="input-group">
-                    <input type="text" id="club-run-type" placeholder="Run Type">
-                </div>
-                <div class="input-group">
-                    <input type="text" id="club-business-name" placeholder="Business Name">
-                </div>
-                <div class="input-group">
-                    <input type="number" id="club-group-size" placeholder="Group Size">
-                </div>
-                <div class="input-group checkbox-group">
-                    <label>
-                        <input type="checkbox" id="club-beginner-friendly"> Beginner Friendly
-                    </label>
-                </div>
-                <div class="input-group checkbox-group">
-                    <label>
-                        <input type="checkbox" id="club-bag-drop"> Bag Drop
-                    </label>
-                </div>
-                <div class="input-group">
-                    <input hidden ="number" id="club-location-lat" placeholder="Location Latitude">
-                </div>
-                <div class="input-group">
-                    <input hidden type="number" id="club-location-lon" placeholder="Location Longitude">
-                </div>
 
-                <div class="input-group">
-                    <label for="map">Club Location:</label>
-                    <div id="map" style="height: 300px;"></div>
-                </div>
+                    <div id="socials-container" class="social-container">
 
-                
-                </div>
-
-                <div class="form-section">
                     <h3>Social Media Links</h3>
-                <div id="socials-container" class="social-container">
-                <input type="text" id="social-instagram" placeholder="Instagram">
-                <input type="text" id="social-twitter" placeholder="Twitter">
-                <input type="text" id="social-website" placeholder="Website">
-                <input type="text" id="social-phone" placeholder="Phone">
-                <input type="text" id="social-email" placeholder="Email">
-            </div>
-            </div>
-            
-                <!-- Club Schedules Section -->
+
+                        <div class="social-input">
+                            <label for="preferred-social">Preferred Contact Method:</label>
+                            <select id="preferred-social" name="preferred-social">
+                                <option value="instagram">Instagram</option>
+                                <option value="twitter">Twitter</option>
+                                <option value="website">Website</option>
+                                <option value="phone">Phone</option>
+                                <option value="email">Email</option>
+                            </select>
+                        </div>
+                        <div class="social-input">
+                            <i class="fab fa-instagram"></i>
+                            <input type="text" id="social-instagram" placeholder="Instagram" name="social-instagram">
+                        </div>
+                        <div class="social-input">
+                            <i class="fab fa-twitter"></i>
+                            <input type="text" id="social-twitter" placeholder="Twitter" name="social-twitter">
+                        </div>
+                        <div class="social-input">
+                            <i class="fas fa-globe"></i>
+                            <input type="text" id="social-website" placeholder="Website" name="social-website">
+                        </div>
+                        <div class="social-input">
+                            <i class="fas fa-phone"></i>
+                            <input type="text" id="social-phone" placeholder="Phone" name="social-phone">
+                        </div>
+                        <div class="social-input">
+                            <i class="fas fa-envelope"></i>
+                            <input type="text" id="social-email" placeholder="Email" name="social-email">
+                        </div>
+                    </div>
+                </div>
+                
                 <div class="form-section">
                     <h3>Club Schedules</h3>
                     <div id="schedule-container">
                         <!-- Schedule Entry Template -->
                         <div class="schedule-entry">
-                            <input type="text" class="schedule-day" placeholder="Day">
-                            <input type="text" class="schedule-time" placeholder="Time">
-                            <input type="text" class="schedule-distance" placeholder="Distance">
-                            <input type="text" class="schedule-duration" placeholder="Duration">
-                            <input type="text" class="schedule-pace" placeholder="Pace">
-                            <input type="text" class="schedule-intention" placeholder="Intention">
-                            <button type="button" onclick="removeScheduleEntry(this)">Remove</button>
+                            <label for="schedule-day">Day:</label>
+                            <select id="schedule-day" class="schedule-day">
+                                <option value="Monday">Monday</option>
+                                <option value="Tuesday">Tuesday</option>
+                                <option value="Wednesday">Wednesday</option>
+                                <option value="Thursday">Thursday</option>
+                                <option value="Friday">Friday</option>
+                                <option value="Saturday">Saturday</option>
+                                <option value="Sunday">Sunday</option>
+                            </select>
+                        
+                            <label for="schedule-time">Time:</label>
+                            <input type="text" id="schedule-time" class="schedule-time" placeholder="Select Time">
+                        
+                            <div class="distance-container">
+                                <label for="schedule-distance">Distance:</label>
+                                <div class="distance-slider">
+                                    <input type="range" id="schedule-distance" class="schedule-distance" min="0" max="44" step="0.5" value="0">
+                                    <span class="distance-value-container">
+                                        <span id="distance-value">0</span>
+                                    </span>
+                                    </div>
+                            </div>
+
+                            <div class="duration-container">
+                                <label for="schedule-duration">Duration:</label>
+
+                                <div class="duration-input">
+                                    <input type="text" id="schedule-duration" class="schedule-duration" placeholder="Duration" readonly>
+
+                                </div>
+                            </div>
+
+                            <script>
+                                document.getElementById("custom-duration").addEventListener("change", function() {
+                                var customDurationInput = document.getElementById("custom-duration-input");
+                                var scheduleDuration = document.getElementById("schedule-duration");
+
+                                if (this.checked) {
+                                    customDurationInput.disabled = false;
+                                    scheduleDuration.value = "";
+                                } else {
+                                    customDurationInput.disabled = true;
+                                    calculateDuration();
+                                }
+                            });
+                            </script>
+
+                            <label for="schedule-pace">Pace:</label>
+                            <select id="schedule-pace" class="schedule-pace">
+                                <option value="Casual">Casual</option>
+                                <option value="Moderate">Moderate</option>
+                                <option value="Fast">Fast</option>
+                                <option value="Varied">Varied</option>
+                            </select>
+                        
+                            <label for="schedule-intention">Intention:</label>
+                            <select id="schedule-intention" class="schedule-intention">
+                                <option value="Social">Social</option>
+                                <option value="Endurance">Endurance</option>
+                                <option value="Speed Work">Speed Work</option>
+                                <option value="Tempo Runs">Tempo Runs</option>
+                                <option value="Long Run">Long Run</option>
+                                <option value="Community Run">Community Run</option>
+                                <option value="Midweek Motivation">Midweek Motivation</option>
+                                <option value="Speed Training">Speed Training</option>
+                                <option value="Hill Workouts">Hill Workouts</option>
+                                <option value="Social Run">Social Run</option>
+                                <option value="Pre-Race">Pre-Race</option>
+                                <option value="Technique">Technique</option>
+                                <option value="Marathon Prep">Marathon Prep</option>
+                                <option value="Tempo Run">Tempo Run</option>
+                            </select>
                         </div>
                     </div>
                     <button type="button" id="add-schedule">Add Schedule</button>
                 </div>
                 
+                <script>
+
+                    // Initialize the time picker
+                    flatpickr("#schedule-time", {
+                        enableTime: true,
+                        noCalendar: true,
+                        dateFormat: "H:i",
+                    });
+
+                    // Update duration based on distance
+                    document.getElementById("schedule-distance").addEventListener("input", function() {
+                        var distance = parseFloat(this.value);
+                        var durationMinutes = distance * 15; // 45 minutes per 0.5km
+                        var hours = Math.floor(durationMinutes / 60);
+                        var minutes = durationMinutes % 60;
+                        document.getElementById("schedule-duration").value = hours + "h " + minutes + "m";
+                        document.getElementById("distance-value").textContent = distance + " km";
+                    });
+
+                    </script>
 
             <button type="submit">Save Club</button>
             </form>
